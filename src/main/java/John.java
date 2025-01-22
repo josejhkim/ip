@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class John {
@@ -9,7 +11,7 @@ public class John {
 
         Scanner myObj = new Scanner(System.in);
         String userInput = myObj.nextLine();
-        String[] stringList = new String[100];
+        List<String> taskList = new ArrayList<>();
         
         while (!userInput.equals("bye")) {
             System.out.println("____________________________________________________________");
