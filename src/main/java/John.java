@@ -9,7 +9,8 @@ public class John {
 
         Scanner myObj = new Scanner(System.in);
         String userInput = myObj.nextLine();
-
+        String[] stringList = new String[100];
+        
         while (!userInput.equals("bye")) {
             System.out.println("____________________________________________________________");
             System.out.println("You said: " + userInput);
