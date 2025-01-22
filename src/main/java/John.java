@@ -59,6 +59,10 @@ public class John {
             this.isDone = false;
         }
 
+        public String getDescription() {
+            return this.description;
+        }
+
         public String getTaskString() {
             return "[" + this.getStatusIcon() + "] " + this.description;
         }
