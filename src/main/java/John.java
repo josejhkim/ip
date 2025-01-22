@@ -11,7 +11,7 @@ public class John {
 
         Scanner myObj = new Scanner(System.in);
         String userInput = myObj.nextLine();
-        List<String> taskList = new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
         
         while (!userInput.equals("bye")) {
             System.out.println("____________________________________________________________");
@@ -28,7 +28,7 @@ public class John {
                 }
             } else {
                 System.out.println("Adding \"" + userInput + "\" to your list!");
-                taskList.add(userInput);
+                taskList.add(new Task(userInput));
             }
             System.out.println("____________________________________________________________");
             userInput = myObj.nextLine();
