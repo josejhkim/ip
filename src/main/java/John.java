@@ -7,15 +7,17 @@ public class John {
         System.out.println("------------------------------------------------------------");
         System.out.println("Hello! I'm John, your personalized assistant chatbot");
         System.out.println("How can I help you today?");
-        System.out.println("------------------------------------------------------------");
 
         Scanner myObj = new Scanner(System.in);
-        String userInput = myObj.nextLine();
         List<Task> taskList = new ArrayList<>();
 
-        while (!userInput.equals("bye")) {
+        while (true) {
             System.out.println("------------------------------------------------------------");
-            if (userInput.startsWith("mark ")) {
+            String userInput = myObj.nextLine();
+            System.out.println("------------------------------------------------------------");
+            if (userInput.equals("bye")) {
+                break;
+            } else if (userInput.startsWith("mark ")) {
                 int index = Integer.parseInt(userInput.substring(5)) - 1;
                 if (index >= taskList.size()) {
                     System.out.println("index " + (index + 1) + " is out of bounds for your list of size " + taskList.size());
@@ -66,8 +68,6 @@ public class John {
             } else {
                 System.out.println("please input a proper command!");
             }
-            System.out.println("------------------------------------------------------------");
-            userInput = myObj.nextLine();
         }
 
         System.out.println("Goodbye and have a nice day!");
