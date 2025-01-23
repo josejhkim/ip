@@ -40,7 +40,7 @@ public class John {
                     int index = 1;
                     for (Task task : taskList) {
                         System.out.println(
-                                index++ + ". " + task.getTaskString()
+                                index++ + ". " + task.toString()
                         );
                     }
                 }
