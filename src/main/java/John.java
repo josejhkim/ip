@@ -39,7 +39,10 @@ public class John {
                 }
             } else if (userInput.startsWith("todo ")) {
                 String desc = userInput.substring(5);
-
+                if (desc.isEmpty()) {
+                    System.out.println("please input a proper task description");
+                    continue;
+                }
                 Todo task = new Todo(desc);
                 taskList.add(task);
                 System.out.println("added");
@@ -47,28 +50,47 @@ public class John {
                 System.out.println("to your list!");
 
             } else if (userInput.startsWith("deadline ")) {
-                int deadlineIndex = userInput.indexOf("/");
-                String desc = userInput.substring(9, deadlineIndex);
-                String deadline = userInput.substring(deadlineIndex + 4);
+                try {
+                    int deadlineIndex = userInput.indexOf("/");
+                    if (deadlineIndex == -1) {
+                        System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+                        System.out.println("deadline return book /by Sunday");
+                        continue;
+                    }
+                    String desc = userInput.substring(9, deadlineIndex);
+                    if (desc.isEmpty()) {
+                        System.out.println("please input a proper task description");
+                        continue;
+                    }
+                    String deadline = userInput.substring(deadlineIndex + 4);
 
-                Deadline task = new Deadline(desc, deadline);
-                taskList.add(task);
-                System.out.println("added");
-                System.out.println(task);
-                System.out.println("to your list!");
+                    Deadline task = new Deadline(desc, deadline);
+                    taskList.add(task);
+                    System.out.println("added");
+                    System.out.println(task);
+                    System.out.println("to your list!");
+                } catch (StringIndexOutOfBoundsException sioobe) {
+                    System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+                    System.out.println("deadline return book /by Sunday");
+                }
 
             } else if (userInput.startsWith("event ")) {
-                int fromIndex = userInput.indexOf("/");
-                int toIndex = userInput.indexOf("/", fromIndex + 1);
-                String desc = userInput.substring(6, fromIndex);
-                String from = userInput.substring(fromIndex + 6, toIndex - 1);
-                String to = userInput.substring(toIndex + 4);
+                try {
+                    int fromIndex = userInput.indexOf("/");
+                    int toIndex = userInput.indexOf("/", fromIndex + 1);
+                    String desc = userInput.substring(6, fromIndex);
+                    String from = userInput.substring(fromIndex + 6, toIndex - 1);
+                    String to = userInput.substring(toIndex + 4);
 
-                Event task = new Event(desc, from, to);
-                taskList.add(task);
-                System.out.println("added");
-                System.out.println(task);
-                System.out.println("to your list!");
+                    Event task = new Event(desc, from, to);
+                    taskList.add(task);
+                    System.out.println("added");
+                    System.out.println(task);
+                    System.out.println("to your list!");
+                } catch (StringIndexOutOfBoundsException sioobe) {
+                    System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+                    System.out.println("deadline return book /by Sunday");
+                }
 
             } else if (userInput.equals("list")) {
                 if (taskList.isEmpty()) {
@@ -84,7 +106,11 @@ public class John {
                     }
                 }
             } else {
-                System.out.println("please input a proper command!");
+                try {
+                    throw new JohnCommandException();
+                } catch (JohnCommandException e) {
+                    System.out.println("please input a proper command!");
+                }
             }
         }
 
