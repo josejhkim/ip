@@ -31,6 +31,25 @@ public class John {
                     System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as not done!");
                     taskList.get(index).unmarkAsDone();
                 }
+
+            } else if (userInput.startsWith("todo ")) {
+                String desc = userInput.substring(5);
+                taskList.add(new Todo(desc));
+
+            } else if (userInput.startsWith("deadline ")) {
+                int deadlineIndex = userInput.indexOf("/");
+                String desc = userInput.substring(9, deadlineIndex);
+                String deadline = userInput.substring(deadlineIndex + 4);
+                taskList.add(new Deadline(desc, deadline));
+
+            } else if (userInput.startsWith("event ")) {
+                int fromIndex = userInput.indexOf("/");
+                int toIndex = userInput.indexOf("/", fromIndex + 1);
+                String desc = userInput.substring(6, fromIndex);
+                String from = userInput.substring(fromIndex + 6, toIndex - 1);
+                String to = userInput.substring(toIndex + 4);
+                taskList.add(new Event(desc, from, to));
+
             } else if (userInput.equals("list")) {
                 if (taskList.isEmpty()) {
                     System.out.println("your list is currently empty!");
