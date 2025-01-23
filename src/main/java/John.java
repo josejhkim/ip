@@ -37,6 +37,17 @@ public class John {
                 } catch (NumberFormatException nfe) {
                     System.out.println("please input a proper index in a numerical format");
                 }
+
+            } else if (userInput.startsWith("delete ")) {
+                try {
+                    int index = Integer.parseInt(userInput.substring(7)) - 1;
+                    taskList.remove(index);
+                } catch (IndexOutOfBoundsException ioobe) {
+                    System.out.println("please input a proper index less than or equal to " + taskList.size());
+                } catch (NumberFormatException nfe) {
+                    System.out.println("please input a proper index in a numerical format");
+                }
+                
             } else if (userInput.startsWith("todo ")) {
                 String desc = userInput.substring(5);
                 if (desc.isEmpty()) {
