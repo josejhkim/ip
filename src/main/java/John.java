@@ -64,8 +64,7 @@ public class John {
                     }
                 }
             } else {
-                System.out.println("Adding \"" + userInput + "\" to your list!");
-                taskList.add(new Task(userInput));
+                System.out.println("please input a proper command!");
             }
             System.out.println("____________________________________________________________");
             userInput = myObj.nextLine();
