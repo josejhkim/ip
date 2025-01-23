@@ -36,13 +36,23 @@ public class John {
 
             } else if (userInput.startsWith("todo ")) {
                 String desc = userInput.substring(5);
-                taskList.add(new Todo(desc));
+
+                Todo task = new Todo(desc);
+                taskList.add(task);
+                System.out.println("added");
+                System.out.println(task);
+                System.out.println("to your list!");
 
             } else if (userInput.startsWith("deadline ")) {
                 int deadlineIndex = userInput.indexOf("/");
                 String desc = userInput.substring(9, deadlineIndex);
                 String deadline = userInput.substring(deadlineIndex + 4);
-                taskList.add(new Deadline(desc, deadline));
+
+                Deadline task = new Deadline(desc, deadline);
+                taskList.add(task);
+                System.out.println("added");
+                System.out.println(task);
+                System.out.println("to your list!");
 
             } else if (userInput.startsWith("event ")) {
                 int fromIndex = userInput.indexOf("/");
@@ -50,7 +60,12 @@ public class John {
                 String desc = userInput.substring(6, fromIndex);
                 String from = userInput.substring(fromIndex + 6, toIndex - 1);
                 String to = userInput.substring(toIndex + 4);
-                taskList.add(new Event(desc, from, to));
+
+                Event task = new Event(desc, from, to);
+                taskList.add(task);
+                System.out.println("added");
+                System.out.println(task);
+                System.out.println("to your list!");
 
             } else if (userInput.equals("list")) {
                 if (taskList.isEmpty()) {
