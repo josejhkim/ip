@@ -18,22 +18,25 @@ public class John {
             if (userInput.equals("bye")) {
                 break;
             } else if (userInput.startsWith("mark ")) {
-                int index = Integer.parseInt(userInput.substring(5)) - 1;
-                if (index >= taskList.size()) {
-                    System.out.println("index " + (index + 1) + " is out of bounds for your list of size " + taskList.size());
-                } else {
+                try {
+                    int index = Integer.parseInt(userInput.substring(5)) - 1;
                     System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as done!");
                     taskList.get(index).markAsDone();
+                } catch (IndexOutOfBoundsException ioobe) {
+                    System.out.println("please input a proper index less than or equal to " + taskList.size());
+                } catch (NumberFormatException nfe) {
+                    System.out.println("please input a proper index in a numerical format");
                 }
             } else if (userInput.startsWith("unmark ")){
-                int index = Integer.parseInt(userInput.substring(7)) - 1;
-                if (index >= taskList.size()) {
-                    System.out.println("index " + (index + 1) + " is out of bounds for your list of size " + taskList.size());
-                } else {
+                try {
+                    int index = Integer.parseInt(userInput.substring(7)) - 1;
                     System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as not done!");
                     taskList.get(index).unmarkAsDone();
+                } catch (IndexOutOfBoundsException ioobe) {
+                    System.out.println("please input a proper index less than or equal to " + taskList.size());
+                } catch (NumberFormatException nfe) {
+                    System.out.println("please input a proper index in a numerical format");
                 }
-
             } else if (userInput.startsWith("todo ")) {
                 String desc = userInput.substring(5);
 
