@@ -22,9 +22,11 @@ public class John {
                 } else {
                     System.out.println("your list currently contains");
                     int index = 1;
-                    taskList.forEach(str -> System.out.println(
-                            index + ". " + str
-                    ));
+                    for (Task task : taskList) {
+                        System.out.println(
+                                index++ + ". " + task.getTaskString()
+                        );
+                    }
                 }
             } else {
                 System.out.println("Adding \"" + userInput + "\" to your list!");
