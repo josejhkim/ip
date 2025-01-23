@@ -4,17 +4,17 @@ import java.util.Scanner;
 
 public class John {
     public static void main(String[] args) {
-        System.out.println("____________________________________________________________");
+        System.out.println("------------------------------------------------------------");
         System.out.println("Hello! I'm John, your personalized assistant chatbot");
         System.out.println("How can I help you today?");
-        System.out.println("____________________________________________________________");
+        System.out.println("------------------------------------------------------------");
 
         Scanner myObj = new Scanner(System.in);
         String userInput = myObj.nextLine();
         List<Task> taskList = new ArrayList<>();
 
         while (!userInput.equals("bye")) {
-            System.out.println("____________________________________________________________");
+            System.out.println("------------------------------------------------------------");
             if (userInput.startsWith("mark ")) {
                 int index = Integer.parseInt(userInput.substring(5)) - 1;
                 if (index >= taskList.size()) {
@@ -66,11 +66,10 @@ public class John {
             } else {
                 System.out.println("please input a proper command!");
             }
-            System.out.println("____________________________________________________________");
+            System.out.println("------------------------------------------------------------");
             userInput = myObj.nextLine();
         }
 
-        System.out.println("____________________________________________________________");
         System.out.println("Goodbye and have a nice day!");
     }
 }
