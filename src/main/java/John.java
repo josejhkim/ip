@@ -56,10 +56,7 @@ public class John {
                 }
                 Todo task = new Todo(desc);
                 taskList.add(task);
-                System.out.println("added");
-                System.out.println(task);
-                System.out.println("to your list!");
-
+                John.printTaskAddition(task);
             } else if (userInput.startsWith("deadline ")) {
                 try {
                     int deadlineIndex = userInput.indexOf("/");
@@ -77,9 +74,7 @@ public class John {
 
                     Deadline task = new Deadline(desc, deadline);
                     taskList.add(task);
-                    System.out.println("added");
-                    System.out.println(task);
-                    System.out.println("to your list!");
+                    John.printTaskAddition(task);
                 } catch (StringIndexOutOfBoundsException sioobe) {
                     System.out.println("please enter a proper deadline for this task by formatting it as follows:");
                     System.out.println("deadline return book /by Sunday");
@@ -95,9 +90,7 @@ public class John {
 
                     Event task = new Event(desc, from, to);
                     taskList.add(task);
-                    System.out.println("added");
-                    System.out.println(task);
-                    System.out.println("to your list!");
+                    John.printTaskAddition(task);
                 } catch (StringIndexOutOfBoundsException sioobe) {
                     System.out.println("please enter a proper deadline for this task by formatting it as follows:");
                     System.out.println("deadline return book /by Sunday");
@@ -127,5 +120,11 @@ public class John {
 
         System.out.println("Goodbye and have a nice day!");
         System.out.println("------------------------------------------------------------");
+    }
+
+    public static void printTaskAddition(Task task) {
+        System.out.println("added");
+        System.out.println(task);
+        System.out.println("to your list!");
     }
 }
