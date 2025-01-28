@@ -49,53 +49,29 @@ public class John {
                 }
                 
             } else if (userInput.startsWith("todo ")) {
-                String desc = userInput.substring(5);
-                if (desc.isEmpty()) {
-                    System.out.println("please input a proper task description");
-                    continue;
+                try {
+                    Todo todo = createTodo(userInput);
+                    taskList.add(todo);
+                    John.printTaskAddition(todo);
+                } catch (JohnException Je) {
+                    System.out.println(Je.getMessage());
                 }
-                Todo task = new Todo(desc);
-                taskList.add(task);
-                John.printTaskAddition(task);
             } else if (userInput.startsWith("deadline ")) {
                 try {
-                    int deadlineIndex = userInput.indexOf("/");
-                    if (deadlineIndex == -1) {
-                        System.out.println("please enter a proper deadline for this task by formatting it as follows:");
-                        System.out.println("deadline return book /by Sunday");
-                        continue;
-                    }
-                    String desc = userInput.substring(9, deadlineIndex);
-                    if (desc.isEmpty()) {
-                        System.out.println("please input a proper task description");
-                        continue;
-                    }
-                    String deadline = userInput.substring(deadlineIndex + 4);
-
-                    Deadline task = new Deadline(desc, deadline);
-                    taskList.add(task);
-                    John.printTaskAddition(task);
-                } catch (StringIndexOutOfBoundsException sioobe) {
-                    System.out.println("please enter a proper deadline for this task by formatting it as follows:");
-                    System.out.println("deadline return book /by Sunday");
+                    Deadline deadline = createDeadline(userInput);
+                    taskList.add(deadline);
+                    John.printTaskAddition(deadline);
+                } catch (JohnException Je) {
+                    System.out.println(Je.getMessage());
                 }
-
             } else if (userInput.startsWith("event ")) {
                 try {
-                    int fromIndex = userInput.indexOf("/");
-                    int toIndex = userInput.indexOf("/", fromIndex + 1);
-                    String desc = userInput.substring(6, fromIndex);
-                    String from = userInput.substring(fromIndex + 6, toIndex - 1);
-                    String to = userInput.substring(toIndex + 4);
-
-                    Event task = new Event(desc, from, to);
-                    taskList.add(task);
-                    John.printTaskAddition(task);
-                } catch (StringIndexOutOfBoundsException sioobe) {
-                    System.out.println("please enter a proper deadline for this task by formatting it as follows:");
-                    System.out.println("deadline return book /by Sunday");
+                    Event event = createEvent(userInput);
+                    taskList.add(event);
+                    John.printTaskAddition(event);
+                } catch (JohnException Je) {
+                    System.out.println(Je.getMessage());
                 }
-
             } else if (userInput.equals("list")) {
                 if (taskList.isEmpty()) {
                     System.out.println("your list is currently empty!");
@@ -126,5 +102,58 @@ public class John {
         System.out.println("added");
         System.out.println(task);
         System.out.println("to your list!");
+    }
+
+    public static Todo createTodo(String input) throws JohnException {
+        String desc = input.substring(5);
+        if (desc.isEmpty()) {
+            throw new JohnException("empty task description");
+        }
+        return new Todo(desc);
+    }
+
+    public static Deadline createDeadline(String input) throws JohnException {
+        try {
+            int deadlineIndex = input.indexOf("/");
+
+            if (deadlineIndex == -1) {
+                System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+                System.out.println("deadline return book /by Sunday");
+                throw new JohnException("invalid deadline formatting");
+            }
+
+            String desc = input.substring(9, deadlineIndex);
+
+            if (desc.isEmpty()) {
+                System.out.println("please input a proper task description");
+                throw new JohnException("empty task description");
+            }
+
+            String deadline = input.substring(deadlineIndex + 4);
+
+            return new Deadline(desc, deadline);
+
+        } catch (StringIndexOutOfBoundsException sioobe) {
+            System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+            System.out.println("deadline return book /by Sunday");
+            throw new JohnException("invalid deadline formatting");
+        }
+    }
+
+    public static Event createEvent(String input) throws JohnException {
+        try {
+            int fromIndex = input.indexOf("/from");
+            int toIndex = input.indexOf("/to", fromIndex + 1);
+            String desc = input.substring(6, fromIndex);
+            String from = input.substring(fromIndex + 6, toIndex - 1);
+            String to = input.substring(toIndex + 4);
+
+            return new Event(desc, from, to);
+
+        } catch (StringIndexOutOfBoundsException sioobe) {
+            System.out.println("please enter a proper event for this task by formatting it as follows:");
+            System.out.println("event wine party /from Sunday 8pm /to Sunday 10pm");
+            throw new JohnException("invalid event formatting");
+        }
     }
 }
