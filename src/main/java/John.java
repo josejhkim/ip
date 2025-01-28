@@ -7,12 +7,13 @@ public class John {
     private List<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
+        John john = new John();
+
         System.out.println("------------------------------------------------------------");
         System.out.println("Hello! I'm John, your personalized assistant chatbot");
         System.out.println("How can I help you today?");
 
         Scanner myObj = new Scanner(System.in);
-        List<Task> taskList = new ArrayList<>();
 
         while (true) {
             System.out.println("------------------------------------------------------------");
@@ -20,33 +21,21 @@ public class John {
             System.out.println("------------------------------------------------------------");
             if (userInput.equals("bye")) {
                 break;
+
             } else if (userInput.startsWith("mark ")) {
-                try {
-                    int index = Integer.parseInt(userInput.substring(5)) - 1;
-                    System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as done!");
-                    taskList.get(index).markAsDone();
-                } catch (IndexOutOfBoundsException ioobe) {
-                    System.out.println("please input a proper index less than or equal to " + taskList.size());
-                } catch (NumberFormatException nfe) {
-                    System.out.println("please input a proper index in a numerical format");
-                }
-            } else if (userInput.startsWith("unmark ")){
-                try {
-                    int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as not done!");
-                    taskList.get(index).unmarkAsDone();
-                } catch (IndexOutOfBoundsException ioobe) {
-                    System.out.println("please input a proper index less than or equal to " + taskList.size());
-                } catch (NumberFormatException nfe) {
-                    System.out.println("please input a proper index in a numerical format");
-                }
+                int index = Integer.parseInt(userInput.substring(5)) - 1;
+                john.markAsDoneFromTaskList(index);
+
+            } else if (userInput.startsWith("unmark ")) {
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                john.unmarkAsDoneFromTaskList(index);
 
             } else if (userInput.startsWith("delete ")) {
                 try {
                     int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    taskList.remove(index);
+                    john.taskList.remove(index);
                 } catch (IndexOutOfBoundsException ioobe) {
-                    System.out.println("please input a proper index less than or equal to " + taskList.size());
+                    System.out.println("please input a proper index less than or equal to " + john.taskList.size());
                 } catch (NumberFormatException nfe) {
                     System.out.println("please input a proper index in a numerical format");
                 }
@@ -54,35 +43,35 @@ public class John {
             } else if (userInput.startsWith("todo ")) {
                 try {
                     Todo todo = createTodo(userInput);
-                    taskList.add(todo);
-                    John.printTaskAddition(todo);
+                    john.taskList.add(todo);
+                    printTaskAddition(todo);
                 } catch (JohnException Je) {
                     System.out.println(Je.getMessage());
                 }
             } else if (userInput.startsWith("deadline ")) {
                 try {
                     Deadline deadline = createDeadline(userInput);
-                    taskList.add(deadline);
-                    John.printTaskAddition(deadline);
+                    john.taskList.add(deadline);
+                    printTaskAddition(deadline);
                 } catch (JohnException Je) {
                     System.out.println(Je.getMessage());
                 }
             } else if (userInput.startsWith("event ")) {
                 try {
                     Event event = createEvent(userInput);
-                    taskList.add(event);
-                    John.printTaskAddition(event);
+                    john.taskList.add(event);
+                    printTaskAddition(event);
                 } catch (JohnException Je) {
                     System.out.println(Je.getMessage());
                 }
             } else if (userInput.equals("list")) {
-                if (taskList.isEmpty()) {
+                if (john.taskList.isEmpty()) {
                     System.out.println("your list is currently empty!");
                     System.out.println("type in any item to add it to your list!");
                 } else {
                     System.out.println("your list currently contains");
                     int index = 1;
-                    for (Task task : taskList) {
+                    for (Task task : john.taskList) {
                         System.out.println(
                                 index++ + ". " + task.toString()
                         );
