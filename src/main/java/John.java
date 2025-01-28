@@ -107,6 +107,32 @@ public class John {
         System.out.println("to your list!");
     }
 
+    public void markAsDoneFromTaskList(int index) {
+        try {
+            System.out.println("marking \"" + this.taskList.get(index).getDescription() + "\" as done!");
+            this.taskList.get(index).markAsDone();
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("please input a proper index less than or equal to " + this.taskList.size());
+
+        } catch (NumberFormatException nfe) {
+            System.out.println("please input a proper index in a numerical format");
+        }
+    }
+
+    public void unmarkAsDoneFromTaskList(int index) {
+        try {
+            System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as not done!");
+            taskList.get(index).unmarkAsDone();
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("please input a proper index less than or equal to " + taskList.size());
+
+        } catch (NumberFormatException nfe) {
+            System.out.println("please input a proper index in a numerical format");
+        }
+    }
+
     public static Todo createTodo(String input) throws JohnException {
         String desc = input.substring(5);
         if (desc.isEmpty()) {
