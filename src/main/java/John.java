@@ -31,15 +31,9 @@ public class John {
                 john.unmarkAsDoneFromTaskList(index);
 
             } else if (userInput.startsWith("delete ")) {
-                try {
-                    int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    john.taskList.remove(index);
-                } catch (IndexOutOfBoundsException ioobe) {
-                    System.out.println("please input a proper index less than or equal to " + john.taskList.size());
-                } catch (NumberFormatException nfe) {
-                    System.out.println("please input a proper index in a numerical format");
-                }
-                
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                john.deleteFromTaskList(index);
+
             } else if (userInput.startsWith("todo ")) {
                 try {
                     Todo todo = createTodo(userInput);
@@ -117,6 +111,16 @@ public class John {
         } catch (IndexOutOfBoundsException ioobe) {
             System.out.println("please input a proper index less than or equal to " + taskList.size());
 
+        } catch (NumberFormatException nfe) {
+            System.out.println("please input a proper index in a numerical format");
+        }
+    }
+
+    public void deleteFromTaskList(int index) {
+        try {
+            this.taskList.remove(index);
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("please input a proper index less than or equal to " + this.taskList.size());
         } catch (NumberFormatException nfe) {
             System.out.println("please input a proper index in a numerical format");
         }
