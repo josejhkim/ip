@@ -64,12 +64,7 @@ public class John {
                     System.out.println("type in any item to add it to your list!");
                 } else {
                     System.out.println("your list currently contains");
-                    int index = 1;
-                    for (Task task : john.taskList) {
-                        System.out.println(
-                                index++ + ". " + task.toString()
-                        );
-                    }
+                    john.printTaskList(john.taskList);
                 }
             } else {
                 try {
@@ -123,6 +118,15 @@ public class John {
             System.out.println("please input a proper index less than or equal to " + this.taskList.size());
         } catch (NumberFormatException nfe) {
             System.out.println("please input a proper index in a numerical format");
+        }
+    }
+
+    public void printTaskList(List<Task> taskList) {
+        int index = 1;
+        for (Task task : taskList) {
+            System.out.println(
+                    index++ + ". " + task.toString()
+            );
         }
     }
 
