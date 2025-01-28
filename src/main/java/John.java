@@ -3,6 +3,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class John {
+
+    private List<Task> taskList = new ArrayList<>();
+
     public static void main(String[] args) {
         System.out.println("------------------------------------------------------------");
         System.out.println("Hello! I'm John, your personalized assistant chatbot");
