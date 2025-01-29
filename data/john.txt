@@ -1,3 +1,1 @@
-[T][ ] Finish CS2103T iP
-[D][ ] Submit CS3230 assignment  (by: Sunday)
-[E][ ] Watch CS4225 lecture  (from: 12pm to: 2pm)
+[D][ ] Return books  (by: 2025-01-30)

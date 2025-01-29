@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -156,11 +158,11 @@ public class John {
 
     public static Deadline createDeadline(String input) throws JohnException {
         try {
-            int deadlineIndex = input.indexOf("/");
+            int deadlineIndex = input.indexOf("/by");
 
             if (deadlineIndex == -1) {
                 System.out.println("please enter a proper deadline for this task by formatting it as follows:");
-                System.out.println("deadline return book /by Sunday");
+                System.out.println("deadline return book /by 2025-01-30");
                 throw new JohnException("invalid deadline formatting");
             }
 
@@ -171,13 +173,18 @@ public class John {
                 throw new JohnException("empty task description");
             }
 
-            String deadline = input.substring(deadlineIndex + 4);
+            LocalDate deadline = LocalDate.parse(input.substring(deadlineIndex + 4));
 
             return new Deadline(desc, deadline);
 
+        } catch (DateTimeParseException dtpe) {
+            System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+            System.out.println("deadline return book /by 2025-01-30");
+            throw new JohnException("invalid deadline formatting");
+
         } catch (StringIndexOutOfBoundsException sioobe) {
             System.out.println("please enter a proper deadline for this task by formatting it as follows:");
-            System.out.println("deadline return book /by Sunday");
+            System.out.println("deadline return book /by 2025-01-30");
             throw new JohnException("invalid deadline formatting");
         }
     }
