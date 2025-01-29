@@ -75,6 +75,8 @@ public class John {
                     System.out.println("please input a proper command!");
                 }
             }
+
+            writeTaskListToFile("./data/john.txt", john.taskList);
         }
 
         System.out.println("Goodbye and have a nice day!");
