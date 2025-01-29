@@ -1,15 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class John {
+
+    private List<Task> taskList = new ArrayList<>();
+
     public static void main(String[] args) {
+        John john = new John();
+
         System.out.println("------------------------------------------------------------");
         System.out.println("Hello! I'm John, your personalized assistant chatbot");
         System.out.println("How can I help you today?");
 
         Scanner myObj = new Scanner(System.in);
-        List<Task> taskList = new ArrayList<>();
 
         while (true) {
             System.out.println("------------------------------------------------------------");
@@ -17,104 +23,50 @@ public class John {
             System.out.println("------------------------------------------------------------");
             if (userInput.equals("bye")) {
                 break;
+
             } else if (userInput.startsWith("mark ")) {
-                try {
-                    int index = Integer.parseInt(userInput.substring(5)) - 1;
-                    System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as done!");
-                    taskList.get(index).markAsDone();
-                } catch (IndexOutOfBoundsException ioobe) {
-                    System.out.println("please input a proper index less than or equal to " + taskList.size());
-                } catch (NumberFormatException nfe) {
-                    System.out.println("please input a proper index in a numerical format");
-                }
-            } else if (userInput.startsWith("unmark ")){
-                try {
-                    int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as not done!");
-                    taskList.get(index).unmarkAsDone();
-                } catch (IndexOutOfBoundsException ioobe) {
-                    System.out.println("please input a proper index less than or equal to " + taskList.size());
-                } catch (NumberFormatException nfe) {
-                    System.out.println("please input a proper index in a numerical format");
-                }
+                int index = Integer.parseInt(userInput.substring(5)) - 1;
+                john.markAsDoneFromTaskList(index);
+
+            } else if (userInput.startsWith("unmark ")) {
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                john.unmarkAsDoneFromTaskList(index);
 
             } else if (userInput.startsWith("delete ")) {
-                try {
-                    int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    taskList.remove(index);
-                } catch (IndexOutOfBoundsException ioobe) {
-                    System.out.println("please input a proper index less than or equal to " + taskList.size());
-                } catch (NumberFormatException nfe) {
-                    System.out.println("please input a proper index in a numerical format");
-                }
-                
-            } else if (userInput.startsWith("todo ")) {
-                String desc = userInput.substring(5);
-                if (desc.isEmpty()) {
-                    System.out.println("please input a proper task description");
-                    continue;
-                }
-                Todo task = new Todo(desc);
-                taskList.add(task);
-                System.out.println("added");
-                System.out.println(task);
-                System.out.println("to your list!");
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                john.deleteFromTaskList(index);
 
+            } else if (userInput.startsWith("todo ")) {
+                try {
+                    Todo todo = createTodo(userInput);
+                    john.taskList.add(todo);
+                    printTaskAddition(todo);
+                } catch (JohnException Je) {
+                    System.out.println(Je.getMessage());
+                }
             } else if (userInput.startsWith("deadline ")) {
                 try {
-                    int deadlineIndex = userInput.indexOf("/");
-                    if (deadlineIndex == -1) {
-                        System.out.println("please enter a proper deadline for this task by formatting it as follows:");
-                        System.out.println("deadline return book /by Sunday");
-                        continue;
-                    }
-                    String desc = userInput.substring(9, deadlineIndex);
-                    if (desc.isEmpty()) {
-                        System.out.println("please input a proper task description");
-                        continue;
-                    }
-                    String deadline = userInput.substring(deadlineIndex + 4);
-
-                    Deadline task = new Deadline(desc, deadline);
-                    taskList.add(task);
-                    System.out.println("added");
-                    System.out.println(task);
-                    System.out.println("to your list!");
-                } catch (StringIndexOutOfBoundsException sioobe) {
-                    System.out.println("please enter a proper deadline for this task by formatting it as follows:");
-                    System.out.println("deadline return book /by Sunday");
+                    Deadline deadline = createDeadline(userInput);
+                    john.taskList.add(deadline);
+                    printTaskAddition(deadline);
+                } catch (JohnException Je) {
+                    System.out.println(Je.getMessage());
                 }
-
             } else if (userInput.startsWith("event ")) {
                 try {
-                    int fromIndex = userInput.indexOf("/");
-                    int toIndex = userInput.indexOf("/", fromIndex + 1);
-                    String desc = userInput.substring(6, fromIndex);
-                    String from = userInput.substring(fromIndex + 6, toIndex - 1);
-                    String to = userInput.substring(toIndex + 4);
-
-                    Event task = new Event(desc, from, to);
-                    taskList.add(task);
-                    System.out.println("added");
-                    System.out.println(task);
-                    System.out.println("to your list!");
-                } catch (StringIndexOutOfBoundsException sioobe) {
-                    System.out.println("please enter a proper deadline for this task by formatting it as follows:");
-                    System.out.println("deadline return book /by Sunday");
+                    Event event = createEvent(userInput);
+                    john.taskList.add(event);
+                    printTaskAddition(event);
+                } catch (JohnException Je) {
+                    System.out.println(Je.getMessage());
                 }
-
             } else if (userInput.equals("list")) {
-                if (taskList.isEmpty()) {
+                if (john.taskList.isEmpty()) {
                     System.out.println("your list is currently empty!");
                     System.out.println("type in any item to add it to your list!");
                 } else {
                     System.out.println("your list currently contains");
-                    int index = 1;
-                    for (Task task : taskList) {
-                        System.out.println(
-                                index++ + ". " + task.toString()
-                        );
-                    }
+                    john.printTaskList(john.taskList);
                 }
             } else {
                 try {
@@ -123,9 +75,127 @@ public class John {
                     System.out.println("please input a proper command!");
                 }
             }
+
+            writeTaskListToFile("./data/john.txt", john.taskList);
         }
 
         System.out.println("Goodbye and have a nice day!");
         System.out.println("------------------------------------------------------------");
+    }
+
+    public static void printTaskAddition(Task task) {
+        System.out.println("added");
+        System.out.println(task);
+        System.out.println("to your list!");
+    }
+
+    public void markAsDoneFromTaskList(int index) {
+        try {
+            System.out.println("marking \"" + this.taskList.get(index).getDescription() + "\" as done!");
+            this.taskList.get(index).markAsDone();
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("please input a proper index less than or equal to " + this.taskList.size());
+
+        } catch (NumberFormatException nfe) {
+            System.out.println("please input a proper index in a numerical format");
+        }
+    }
+
+    public void unmarkAsDoneFromTaskList(int index) {
+        try {
+            System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as not done!");
+            taskList.get(index).unmarkAsDone();
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("please input a proper index less than or equal to " + taskList.size());
+
+        } catch (NumberFormatException nfe) {
+            System.out.println("please input a proper index in a numerical format");
+        }
+    }
+
+    public void deleteFromTaskList(int index) {
+        try {
+            this.taskList.remove(index);
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("please input a proper index less than or equal to " + this.taskList.size());
+        } catch (NumberFormatException nfe) {
+            System.out.println("please input a proper index in a numerical format");
+        }
+    }
+
+    public void printTaskList(List<Task> taskList) {
+        int index = 1;
+        for (Task task : taskList) {
+            System.out.println(
+                    index++ + ". " + task.toString()
+            );
+        }
+    }
+
+    public static void writeTaskListToFile(String filePath, List<Task> taskList) {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            for (Task task: taskList) {
+                fw.write(task.toString() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static Todo createTodo(String input) throws JohnException {
+        String desc = input.substring(5);
+        if (desc.isEmpty()) {
+            throw new JohnException("empty task description");
+        }
+        return new Todo(desc);
+    }
+
+    public static Deadline createDeadline(String input) throws JohnException {
+        try {
+            int deadlineIndex = input.indexOf("/");
+
+            if (deadlineIndex == -1) {
+                System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+                System.out.println("deadline return book /by Sunday");
+                throw new JohnException("invalid deadline formatting");
+            }
+
+            String desc = input.substring(9, deadlineIndex);
+
+            if (desc.isEmpty()) {
+                System.out.println("please input a proper task description");
+                throw new JohnException("empty task description");
+            }
+
+            String deadline = input.substring(deadlineIndex + 4);
+
+            return new Deadline(desc, deadline);
+
+        } catch (StringIndexOutOfBoundsException sioobe) {
+            System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+            System.out.println("deadline return book /by Sunday");
+            throw new JohnException("invalid deadline formatting");
+        }
+    }
+
+    public static Event createEvent(String input) throws JohnException {
+        try {
+            int fromIndex = input.indexOf("/from");
+            int toIndex = input.indexOf("/to", fromIndex + 1);
+            String desc = input.substring(6, fromIndex);
+            String from = input.substring(fromIndex + 6, toIndex - 1);
+            String to = input.substring(toIndex + 4);
+
+            return new Event(desc, from, to);
+
+        } catch (StringIndexOutOfBoundsException sioobe) {
+            System.out.println("please enter a proper event for this task by formatting it as follows:");
+            System.out.println("event wine party /from Sunday 8pm /to Sunday 10pm");
+            throw new JohnException("invalid event formatting");
+        }
     }
 }
