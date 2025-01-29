@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class John {
 
@@ -127,6 +129,18 @@ public class John {
             System.out.println(
                     index++ + ". " + task.toString()
             );
+        }
+    }
+
+    public static void writeTaskListToFile(String filePath, List<Task> taskList) {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            for (Task task: taskList) {
+                fw.write(task.toString() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
