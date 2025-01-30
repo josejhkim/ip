@@ -14,6 +14,10 @@ public class TaskList {
         this.taskList = taskList;
     }
 
+    public boolean isEmpty() {
+        return this.taskList.isEmpty();
+    }
+
     public void printTaskAddition(Task task) {
         System.out.println("added");
         System.out.println(task);
