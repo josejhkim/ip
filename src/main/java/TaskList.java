@@ -60,4 +60,17 @@ public class TaskList {
             System.out.println("please input a proper index in a numerical format");
         }
     }
+
+    public void printTaskList(List<Task> taskList) {
+        int index = 1;
+        for (Task task : taskList) {
+            System.out.println(
+                    index++ + ". " + task.toString()
+            );
+        }
+    }
+
+    public void printCurrentTaskList() {
+        printTaskList(this.taskList);
+    }
 }
