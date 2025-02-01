@@ -76,4 +76,8 @@ public class TaskList {
     public List<Task> getTaskList() {
         return Collections.unmodifiableList(taskList);
     }
+
+    public String getDescription(int index) {
+        return this.taskList.get(index).getDescription();
+    }
 }
