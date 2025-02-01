@@ -1,6 +1,5 @@
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TaskList {
@@ -76,5 +75,9 @@ public class TaskList {
 
     public void printCurrentTaskList() {
         printTaskList(this.taskList);
+    }
+
+    public List<Task> getTaskList() {
+        return Collections.unmodifiableList(taskList);
     }
 }
