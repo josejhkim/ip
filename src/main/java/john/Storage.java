@@ -1,3 +1,9 @@
+package john;
+
+import john.exception.JohnException;
+import john.parser.FileTaskParser;
+import john.task.Task;
+
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
