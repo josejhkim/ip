@@ -42,4 +42,9 @@ public class Ui {
     public void printInvalidCommand() {
         System.out.println("please input a proper command!");
     }
+
+    public void printFileReadError(String filePath) {
+        System.out.println("Error loading tasks from the file location at " + filePath);
+        System.out.println("Initializing an empty task list");
+    }
 }
