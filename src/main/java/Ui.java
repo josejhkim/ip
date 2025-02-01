@@ -25,4 +25,12 @@ public class Ui {
         System.out.println(task);
         System.out.println("from your list!");
     }
+
+    public void printMarkAsDone(String description) {
+        System.out.println("marking \"" + description + "\" as done!");
+    }
+
+    public void printUnmarkAsDone(String description) {
+        System.out.println("marking \"" + description + "\" as not done!");
+    }
 }

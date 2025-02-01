@@ -23,7 +23,6 @@ public class TaskList {
 
     public void markAsDoneFromTaskList(int index) {
         try {
-            System.out.println("marking \"" + this.taskList.get(index).getDescription() + "\" as done!");
             this.taskList.get(index).markAsDone();
 
         } catch (IndexOutOfBoundsException ioobe) {
@@ -36,7 +35,6 @@ public class TaskList {
 
     public void unmarkAsDoneFromTaskList(int index) {
         try {
-            System.out.println("marking \"" + taskList.get(index).getDescription() + "\" as not done!");
             taskList.get(index).unmarkAsDone();
 
         } catch (IndexOutOfBoundsException ioobe) {
