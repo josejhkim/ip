@@ -13,4 +13,16 @@ public class Ui {
     public void linebreak() {
         System.out.println("------------------------------------------------------------");
     }
+
+    public void printTaskAddition(Task task) {
+        System.out.println("added");
+        System.out.println(task);
+        System.out.println("to your list!");
+    }
+
+    public void printTaskDeletion(Task task) {
+        System.out.println("removed");
+        System.out.println(task);
+        System.out.println("from your list!");
+    }
 }
