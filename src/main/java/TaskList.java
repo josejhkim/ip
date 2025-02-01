@@ -17,15 +17,8 @@ public class TaskList {
         return this.taskList.isEmpty();
     }
 
-    public void printTaskAddition(Task task) {
-        System.out.println("added");
-        System.out.println(task);
-        System.out.println("to your list!");
-    }
-
     public void addTask(Task task) {
         this.taskList.add(task);
-        printTaskAddition(task);
     }
 
     public void markAsDoneFromTaskList(int index) {
