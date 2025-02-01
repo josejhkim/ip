@@ -1,7 +1,11 @@
+package john;
+
+import john.task.Task;
+
 public class Ui {
     public void printHello() {
         linebreak();
-        System.out.println("Hello! I'm John, your personalized assistant chatbot");
+        System.out.println("Hello! I'm john.John, your personalized assistant chatbot");
         System.out.println("How can I help you today?");
     }
 
