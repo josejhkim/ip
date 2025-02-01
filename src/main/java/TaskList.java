@@ -47,14 +47,17 @@ public class TaskList {
         }
     }
 
-    public void deleteFromTaskList(int index) {
+    public Task deleteFromTaskList(int index) {
         try {
+            Task task = this.taskList.get(index);
             this.taskList.remove(index);
+            return task;
         } catch (IndexOutOfBoundsException ioobe) {
             System.out.println("please input a proper index less than or equal to " + this.taskList.size());
         } catch (NumberFormatException nfe) {
             System.out.println("please input a proper index in a numerical format");
         }
+        return null;
     }
 
     public void printTaskList(List<Task> taskList) {
