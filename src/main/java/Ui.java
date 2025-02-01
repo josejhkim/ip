@@ -33,4 +33,9 @@ public class Ui {
     public void printUnmarkAsDone(String description) {
         System.out.println("marking \"" + description + "\" as not done!");
     }
+
+    public void printEmptyList() {
+        System.out.println("your list is currently empty!");
+        System.out.println("type in any item to add it to your list!");
+    }
 }
