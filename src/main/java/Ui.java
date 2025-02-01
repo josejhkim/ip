@@ -38,4 +38,8 @@ public class Ui {
         System.out.println("your list is currently empty!");
         System.out.println("type in any item to add it to your list!");
     }
+
+    public void printInvalidCommand() {
+        System.out.println("please input a proper command!");
+    }
 }
