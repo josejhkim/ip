@@ -32,7 +32,7 @@ public class Storage {
         while (s.hasNext()) {
             String taskString = s.nextLine();
             try {
-                Task t = FileTaskParser.readEvent(taskString);
+                Task t = FileTaskParser.readTask(taskString);
                 taskList.add(t);
             } catch (JohnException je) {
                 System.out.println("Unable to parse task for " + taskString);
