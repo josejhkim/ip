@@ -20,7 +20,7 @@ public class TaskList {
     }
 
     /**
-     * Initializes a new TaskList object with the given List<Task>
+     * Initializes a new TaskList object with the given List of Tasks
      * @param taskList
      */
     public TaskList(List<Task> taskList) {
@@ -52,12 +52,12 @@ public class TaskList {
             this.taskList.get(index).markAsDone();
 
         } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("please input a proper index " +
-                    "less than or equal to " + this.taskList.size());
+            System.out.println("please input a proper index "
+                + "less than or equal to " + this.taskList.size());
 
         } catch (NumberFormatException nfe) {
-            System.out.println("please input a proper index " +
-                    "in a numerical format");
+            System.out.println("please input a proper index "
+                + "in a numerical format");
         }
     }
 
@@ -70,12 +70,12 @@ public class TaskList {
             taskList.get(index).unmarkAsDone();
 
         } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("please input a proper index " +
-                    "less than or equal to " + taskList.size());
+            System.out.println("please input a proper index "
+                + "less than or equal to " + taskList.size());
 
         } catch (NumberFormatException nfe) {
-            System.out.println("please input a proper index " +
-                    "in a numerical format");
+            System.out.println("please input a proper index "
+                + "in a numerical format");
         }
     }
 
@@ -90,17 +90,17 @@ public class TaskList {
             this.taskList.remove(index);
             return task;
         } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("please input a proper index " +
-                    "less than or equal to " + this.taskList.size());
+            System.out.println("please input a proper index "
+                + "less than or equal to " + this.taskList.size());
         } catch (NumberFormatException nfe) {
-            System.out.println("please input a proper index " +
-                    "in a numerical format");
+            System.out.println("please input a proper index "
+                + "in a numerical format");
         }
         return null;
     }
 
     /**
-     * Prints any given Task<List>.
+     * Prints any given List of Tasks.
      * @param taskList
      */
     public void printTaskList(List<Task> taskList) {
@@ -120,9 +120,9 @@ public class TaskList {
     }
 
     /**
-     * Returns an unmodifiable Task<List>
+     * Returns an unmodifiable List of Tasks
      * based on the currently stored task list.
-     * @return Unmodifiable List<Task> based on the currently stored task list
+     * @return Unmodifiable List of Tasks based on the currently stored task list
      */
     public List<Task> getTaskList() {
         return Collections.unmodifiableList(taskList);
@@ -138,12 +138,12 @@ public class TaskList {
             return this.taskList.get(index).getDescription();
 
         } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("please input a proper index " +
-                    "less than or equal to " + taskList.size());
+            System.out.println("please input a proper index "
+                + "less than or equal to " + taskList.size());
 
         } catch (NumberFormatException nfe) {
-            System.out.println("please input a proper index " +
-                    "in a numerical format");
+            System.out.println("please input a proper index "
+                + "in a numerical format");
         }
         return "";
     }

@@ -12,8 +12,8 @@ public class Ui {
      */
     public void printHello() {
         linebreak();
-        System.out.println("Hello! I'm John, " +
-                "your personalized assistant chatbot");
+        System.out.println("Hello! I'm John, "
+            + "your personalized assistant chatbot");
         System.out.println("How can I help you today?");
     }
 
@@ -29,8 +29,8 @@ public class Ui {
      * Print a visible line break
      */
     public void linebreak() {
-        System.out.println("----------------------------" +
-                "--------------------------------");
+        System.out.println("----------------------------"
+            + "--------------------------------");
     }
 
     /**
@@ -89,8 +89,8 @@ public class Ui {
      * @param filePath
      */
     public void printFileReadError(String filePath) {
-        System.out.println("Error loading tasks " +
-                "from the file location at " + filePath);
+        System.out.println("Error loading tasks "
+            + "from the file location at " + filePath);
         System.out.println("Initializing an empty task list");
     }
 }

@@ -49,8 +49,8 @@ public class InputTaskParser {
             int deadlineIndex = input.indexOf("/by");
 
             if (deadlineIndex == -1) {
-                System.out.println("please enter a proper deadline " +
-                        "for this task by formatting it as follows:");
+                System.out.println("please enter a proper deadline "
+                    + "for this task by formatting it as follows:");
                 System.out.println("deadline return book /by 2025-01-30");
                 throw new JohnException("invalid deadline formatting");
             }
@@ -96,10 +96,10 @@ public class InputTaskParser {
             return new Event(desc, from, to);
 
         } catch (StringIndexOutOfBoundsException sioobe) {
-            System.out.println("please enter a proper event for this task " +
-                    "by formatting it as follows:");
-            System.out.println("event wine party " +
-                    "/from Sunday 8pm /to Sunday 10pm");
+            System.out.println("please enter a proper event for this task "
+                + "by formatting it as follows:");
+            System.out.println("event wine party "
+                + "/from Sunday 8pm /to Sunday 10pm");
             throw new JohnException("invalid event formatting");
         }
     }

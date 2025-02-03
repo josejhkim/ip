@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,7 +27,7 @@ public class Storage {
     }
 
     /**
-     * Write the given List<Task> to the filepath.
+     * Write the given List of Tasks to the filepath.
      * @param taskList
      */
     public void writeTaskListToFile(List<Task> taskList) {
