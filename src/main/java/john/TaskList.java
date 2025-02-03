@@ -80,6 +80,15 @@ public class TaskList {
     }
 
     public String getDescription(int index) {
-        return this.taskList.get(index).getDescription();
+        try {
+            return this.taskList.get(index).getDescription();
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("please input a proper index less than or equal to " + taskList.size());
+
+        } catch (NumberFormatException nfe) {
+            System.out.println("please input a proper index in a numerical format");
+        }
+        return "";
     }
 }
