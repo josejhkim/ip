@@ -1,14 +1,13 @@
 package john;
 
-import org.junit.jupiter.api.Test;
-import john.task.Task;
-
-import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import java.io.PrintStream;
+
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.Test;
+
+import john.task.Task;
 
 public class TaskListTest {
     class TaskStub extends Task {
@@ -24,8 +23,8 @@ public class TaskListTest {
 
     @Test
     public void isEmpty_newTaskList_returnsTrue() {
-            TaskList tl = new TaskList();
-            assertEquals(tl.isEmpty(), true);
+        TaskList tl = new TaskList();
+        assertEquals(tl.isEmpty(), true);
     }
 
     @Test
@@ -59,21 +58,21 @@ public class TaskListTest {
 
     @Test
     public void markAsDone_correctIndex_marksCorrectly() {
-            PrintStream standardOut = System.out;
-            ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outputStreamCaptor));
+        PrintStream standardOut = System.out;
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
 
-            TaskList tl = new TaskList();
-            Task task = new TaskStub("test task");
-            tl.addTask(task);
+        TaskList tl = new TaskList();
+        Task task = new TaskStub("test task");
+        tl.addTask(task);
 
-            int index = 1;
-            tl.markAsDoneFromTaskList(index - 1);
+        int index = 1;
+        tl.markAsDoneFromTaskList(index - 1);
 
-            assertEquals("Marked test task as done!", outputStreamCaptor.toString()
-                .trim());
+        assertEquals("Marked test task as done!", outputStreamCaptor.toString()
+            .trim());
 
-            System.setOut(standardOut);
+        System.setOut(standardOut);
     }
 
     @Test

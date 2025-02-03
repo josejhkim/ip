@@ -1,10 +1,10 @@
 package john;
 
-import john.task.Task;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import john.task.Task;
 
 /**
  * TaskList class for storing tasks in a list
