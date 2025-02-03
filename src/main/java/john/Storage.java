@@ -12,6 +12,9 @@ import java.util.List;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Storage class for writing and reading user's task list to and from a file
+ */
 public class Storage {
     private String filePath;
 

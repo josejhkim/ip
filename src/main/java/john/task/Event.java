@@ -1,5 +1,8 @@
 package john.task;
 
+/**
+ * Event class for storing user's task along with the duration of the event
+ */
 public class Event extends Task {
 
     protected String from;
