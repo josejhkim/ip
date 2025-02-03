@@ -13,16 +13,21 @@ import java.time.format.DateTimeParseException;
 public class FileTaskParser {
 
     public static Todo readTodo(String input) throws JohnException {
-        boolean isDone = input.charAt(4) == ('X');
-        String desc = input.substring(7);
-        if (desc.isEmpty()) {
-            throw new JohnException("empty task description");
+        try {
+            boolean isDone = input.charAt(4) == ('X');
+            String desc = input.substring(7);
+            if (desc.isEmpty()) {
+                throw new JohnException("empty task description");
+            }
+            Todo todo = new Todo(desc);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            return todo;
+        } catch (StringIndexOutOfBoundsException sioobe) {
+            System.out.println("error parsing task!");
+            throw new JohnException("invalid todo formatting when reading todo from file");
         }
-        Todo todo = new Todo(desc);
-        if (isDone) {
-            todo.markAsDone();
-        }
-        return todo;
     }
 
     public static Deadline readDeadline(String input) throws JohnException {
