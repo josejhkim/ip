@@ -12,6 +12,11 @@ public class John {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Initialize a new John chatbot
+     * with the given filePath as the location for storing  user's task list.
+     * @param filePath
+     */
     public John(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +30,13 @@ public class John {
         }
     }
 
+    /**
+     * Run the while loop for running the chatbot.
+     * Takes in user input as a command on each iteration of the loop
+     * and performs the specified action.
+     * Exits once the user inputs 'bye'
+     * @param args
+     */
     public static void main(String[] args) {
         John john = new John("./data/john.txt");
 
