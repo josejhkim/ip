@@ -35,14 +35,14 @@ public class InputTaskParser {
                 throw new JohnException("invalid deadline formatting");
             }
 
+            LocalDate deadline = LocalDate.parse(input.substring(deadlineIndex + 4));
+
             String desc = input.substring(9, deadlineIndex);
 
             if (desc.isEmpty()) {
                 System.out.println("please input a proper task description");
                 throw new JohnException("empty task description");
             }
-
-            LocalDate deadline = LocalDate.parse(input.substring(deadlineIndex + 4));
 
             return new Deadline(desc, deadline);
 
