@@ -17,7 +17,7 @@ public class John {
         storage = new Storage(filePath);
         ui.printHello();
         try {
-            taskList = new TaskList(storage.getTaskListFromFile());
+            taskList = storage.getTaskListFromFile();
         } catch (FileNotFoundException e) {
             taskList = new TaskList();
             ui.printFileReadError(filePath);
