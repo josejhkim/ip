@@ -9,6 +9,9 @@ import john.task.Todo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class for parsing user's inputs and creating corresponding tasks
+ */
 public class InputTaskParser {
 
     /**

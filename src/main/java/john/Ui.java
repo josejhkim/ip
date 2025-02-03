@@ -2,6 +2,9 @@ package john;
 
 import john.task.Task;
 
+/**
+ * Ui class for printing messages for user on the CLI
+ */
 public class Ui {
 
     /**

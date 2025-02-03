@@ -1,4 +1,7 @@
 package john.exception;
 
-public class JohnCommandException extends JohnException{
+/**
+ * Exception class for exceptions regarding commands sent to the chatbot John
+ */
+public class JohnCommandException extends JohnException {
 }

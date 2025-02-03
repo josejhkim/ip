@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class for reading tasks from a file and parsing tasks
+ */
 public class FileTaskParser {
 
     /**

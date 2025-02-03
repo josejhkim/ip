@@ -6,6 +6,9 @@ import john.task.Task;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Chatbot for storing user's tasks
+ */
 public class John {
 
     private TaskList taskList;

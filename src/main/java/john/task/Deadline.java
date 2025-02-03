@@ -3,6 +3,9 @@ package john.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline class for storing user's task along with a deadline
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;

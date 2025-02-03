@@ -1,5 +1,8 @@
 package john.task;
 
+/**
+ * Todo class for storing a "todo" task
+ */
 public class Todo extends Task {
     /**
      * Create a new Todo object with the given description.

@@ -1,5 +1,8 @@
 package john.task;
 
+/**
+ * Task class for storing information regarding user's tasks
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
