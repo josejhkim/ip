@@ -1,14 +1,14 @@
 package john.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import john.exception.JohnException;
 import john.task.Deadline;
 import john.task.Event;
 import john.task.Task;
 import john.task.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class FileTaskParser {
 

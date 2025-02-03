@@ -1,10 +1,10 @@
 package john;
 
-import john.task.Task;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import john.task.Task;
 
 public class TaskList {
     private List<Task> taskList;

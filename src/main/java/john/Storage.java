@@ -1,16 +1,16 @@
 package john;
 
-import john.exception.JohnException;
-import john.parser.FileTaskParser;
-import john.task.Task;
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
 import java.util.Scanner;
+
+import john.exception.JohnException;
+import john.parser.FileTaskParser;
+import john.task.Task;
 
 public class Storage {
     private String filePath;
