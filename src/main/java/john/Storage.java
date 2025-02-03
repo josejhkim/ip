@@ -15,10 +15,19 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+    /**
+     * Initialize a Storage object
+     * with the filepath to read and write tasks.
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Write the given List<Task> to the filepath.
+     * @param taskList
+     */
     public void writeTaskListToFile(List<Task> taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -31,15 +40,20 @@ public class Storage {
         }
     }
 
-    public List<Task> getTaskListFromFile() throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        List<Task> taskList = new ArrayList<>();
+    /**
+     * Read and create a new TaskList from the file at the specified location.
+     * @return TaskList containing the tasks from the specified file
+     * @throws FileNotFoundException
+     */
+    public TaskList getTaskListFromFile() throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        TaskList taskList = new TaskList();
         while (s.hasNext()) {
             String taskString = s.nextLine();
             try {
                 Task t = FileTaskParser.readTask(taskString);
-                taskList.add(t);
+                taskList.addTask(t);
             } catch (JohnException je) {
                 System.out.println("Unable to parse task for " + taskString);
             }

@@ -11,6 +11,14 @@ import java.time.format.DateTimeParseException;
 
 public class InputTaskParser {
 
+    /**
+     * Reads the user input and creates a corresponding todo object
+     * if the input is valid.
+     * Otherwise, throw an exception.
+     * @param input
+     * @return Todo object based on the user input
+     * @throws JohnException
+     */
     public static Todo createTodo(String input) throws JohnException {
         try {
             String desc = input.substring(5);
@@ -25,17 +33,27 @@ public class InputTaskParser {
 
     }
 
+    /**
+     * Reads the user input and creates a corresponding deadline object
+     * if the input is valid.
+     * Otherwise, throw an exception.
+     * @param input
+     * @return Deadline object based on the user input
+     * @throws JohnException
+     */
     public static Deadline createDeadline(String input) throws JohnException {
         try {
             int deadlineIndex = input.indexOf("/by");
 
             if (deadlineIndex == -1) {
-                System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+                System.out.println("please enter a proper deadline " +
+                        "for this task by formatting it as follows:");
                 System.out.println("deadline return book /by 2025-01-30");
                 throw new JohnException("invalid deadline formatting");
             }
 
-            LocalDate deadline = LocalDate.parse(input.substring(deadlineIndex + 4));
+            LocalDate deadline = LocalDate.parse(
+                    input.substring(deadlineIndex + 4));
 
             String desc = input.substring(9, deadlineIndex);
 
@@ -46,14 +64,24 @@ public class InputTaskParser {
 
             return new Deadline(desc, deadline);
 
-        } catch (DateTimeParseException | StringIndexOutOfBoundsException dtpe) {
-            System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+        } catch (DateTimeParseException | StringIndexOutOfBoundsException
+                dtpe) {
+            System.out.println("please enter a proper deadline for this task "
+                    + "by formatting it as follows:");
             System.out.println("deadline return book /by 2025-01-30");
             throw new JohnException("invalid deadline formatting");
 
         }
     }
 
+    /**
+     * Reads the user input and creates a corresponding event object
+     * if the input is valid.
+     * Otherwise, throw an exception.
+     * @param input
+     * @return Event object based on the user input
+     * @throws JohnException
+     */
     public static Event createEvent(String input) throws JohnException {
         try {
             int fromIndex = input.indexOf("/from");
@@ -65,12 +93,22 @@ public class InputTaskParser {
             return new Event(desc, from, to);
 
         } catch (StringIndexOutOfBoundsException sioobe) {
-            System.out.println("please enter a proper event for this task by formatting it as follows:");
-            System.out.println("event wine party /from Sunday 8pm /to Sunday 10pm");
+            System.out.println("please enter a proper event for this task " +
+                    "by formatting it as follows:");
+            System.out.println("event wine party " +
+                    "/from Sunday 8pm /to Sunday 10pm");
             throw new JohnException("invalid event formatting");
         }
     }
 
+    /**
+     * Reads the user input and creates a corresponding task object
+     * if the input is valid.
+     * Otherwise, throw an exception.
+     * @param input
+     * @return Task object based on the user input
+     * @throws JohnException
+     */
     public static Task createTask(String input) throws JohnException {
         if (input.startsWith("todo ")) {
             return createTodo(input);

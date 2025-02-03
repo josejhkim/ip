@@ -12,6 +12,13 @@ import java.time.format.DateTimeParseException;
 
 public class FileTaskParser {
 
+    /**
+     * Reads a todo task from the file storing the task list
+     * and returns it.
+     * @param input
+     * @return Todo object from the given file line input
+     * @throws JohnException
+     */
     public static Todo readTodo(String input) throws JohnException {
         try {
             boolean isDone = input.charAt(4) == ('X');
@@ -26,23 +33,34 @@ public class FileTaskParser {
             return todo;
         } catch (StringIndexOutOfBoundsException sioobe) {
             System.out.println("error parsing task!");
-            throw new JohnException("invalid todo formatting when reading todo from file");
+            throw new JohnException("invalid todo formatting " +
+                    "when reading todo from file");
         }
     }
 
+    /**
+     * Reads a deadline task from the file storing the task list
+     * and returns it.
+     * @param input
+     * @return Deadline object from the given file line input
+     * @throws JohnException
+     */
     public static Deadline readDeadline(String input) throws JohnException {
         try {
             int deadlineIndex = input.indexOf("(by:");
 
             if (deadlineIndex == -1) {
-                System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+                System.out.println("please enter a proper deadline " +
+                        "for this task by formatting it as follows:");
                 System.out.println("deadline return book /by 2025-01-30");
                 throw new JohnException("invalid deadline formatting");
             }
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("dd MMM yyyy");
 
-            LocalDate deadline = LocalDate.parse(input.substring(deadlineIndex + 5, deadlineIndex + 16), formatter);
+            LocalDate deadline = LocalDate.parse(input.substring(
+                    deadlineIndex + 5, deadlineIndex + 16), formatter);
 
             String desc = input.substring(7, deadlineIndex);
 
@@ -60,14 +78,23 @@ public class FileTaskParser {
 
             return dl;
 
-        } catch (DateTimeParseException | StringIndexOutOfBoundsException invalidFormattingException) {
-            System.out.println("please enter a proper deadline for this task by formatting it as follows:");
+        } catch (DateTimeParseException | StringIndexOutOfBoundsException
+                invalidFormattingException) {
+            System.out.println("please enter a proper deadline for this task "
+                    + "by formatting it as follows:");
             System.out.println("deadline return book /by 2025-01-30");
             throw new JohnException("invalid deadline formatting");
 
         }
     }
 
+    /**
+     * Reads an event task from the file storing the task list
+     * and returns it.
+     * @param input
+     * @return Event object from the given file line input
+     * @throws JohnException
+     */
     public static Event readEvent(String input) throws JohnException {
         try {
             int fromIndex = input.indexOf("(from:");
@@ -86,12 +113,21 @@ public class FileTaskParser {
             return event;
 
         } catch (StringIndexOutOfBoundsException sioobe) {
-            System.out.println("please enter a proper event for this task by formatting it as follows:");
-            System.out.println("event wine party /from Sunday 8pm /to Sunday 10pm");
+            System.out.println("please enter a proper event for this task " +
+                    "by formatting it as follows:");
+            System.out.println("event wine party " +
+                    "/from Sunday 8pm /to Sunday 10pm");
             throw new JohnException("invalid event formatting");
         }
     }
 
+    /**
+     * Reads a task from the file storing the task list
+     * and returns the corresponding subclass object
+     * @param input
+     * @return Task object from the given file line input
+     * @throws JohnException
+     */
     public static Task readTask(String input) throws JohnException {
         if (input.startsWith("[T]")) {
             try {
