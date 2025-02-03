@@ -12,11 +12,17 @@ import java.time.format.DateTimeParseException;
 public class InputTaskParser {
 
     public static Todo createTodo(String input) throws JohnException {
-        String desc = input.substring(5);
-        if (desc.isEmpty()) {
-            throw new JohnException("empty task description");
+        try {
+            String desc = input.substring(5);
+            if (desc.isEmpty()) {
+                throw new JohnException("empty task description");
+            }
+            return new Todo(desc);
+        } catch (StringIndexOutOfBoundsException sioobe) {
+            //This shouldn't happen but just in case
+            throw new JohnException("Invalid todo formatting");
         }
-        return new Todo(desc);
+
     }
 
     public static Deadline createDeadline(String input) throws JohnException {
