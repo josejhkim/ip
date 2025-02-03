@@ -73,29 +73,16 @@ public class InputTaskParser {
 
     public static Task createTask(String input) throws JohnException {
         if (input.startsWith("todo ")) {
-            try {
-                return createTodo(input);
-            } catch (JohnException je) {
-                System.out.println(je.getMessage());
-            }
+            return createTodo(input);
 
         } else if (input.startsWith("deadline ")) {
-            try {
-                return createDeadline(input);
-            } catch (JohnException je) {
-                System.out.println(je.getMessage());
-            }
+            return createDeadline(input);
 
         } else if (input.startsWith("event ")) {
-            try {
-                return createEvent(input);
-            } catch (JohnException je) {
-                System.out.println(je.getMessage());
-            }
-        } else {
-            throw new JohnException("Can't parse task from storage file");
-        }
+            return createEvent(input);
 
-        return new Task("");
+        } else {
+            throw new JohnException("Please input a proper task command");
+        }
     }
 }
