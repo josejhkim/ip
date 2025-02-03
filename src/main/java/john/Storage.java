@@ -31,15 +31,15 @@ public class Storage {
         }
     }
 
-    public List<Task> getTaskListFromFile() throws FileNotFoundException {
+    public TaskList getTaskListFromFile() throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        List<Task> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
         while (s.hasNext()) {
             String taskString = s.nextLine();
             try {
                 Task t = FileTaskParser.readTask(taskString);
-                taskList.add(t);
+                taskList.addTask(t);
             } catch (JohnException je) {
                 System.out.println("Unable to parse task for " + taskString);
             }
