@@ -5,6 +5,8 @@ import john.task.Task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private List<Task> taskList;
@@ -77,6 +79,12 @@ public class TaskList {
 
     public List<Task> getTaskList() {
         return Collections.unmodifiableList(taskList);
+    }
+
+    public List<Task> getFilteredTaskList(String str) {
+        return this.taskList.stream()
+            .filter(task -> task.getDescription().contains(str)).collect(Collectors.toList());
+
     }
 
     public String getDescription(int index) {
