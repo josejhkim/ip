@@ -76,6 +76,14 @@ public class John {
                     System.out.println("your list currently contains");
                     john.taskList.printCurrentTaskList();
                 }
+            } else if (userInput.startsWith("find ")) {
+                String str = userInput.substring(5);
+
+                System.out.println("below are your tasks " +
+                    "that contain the word " +
+                    "\"" + str + "\"");
+                john.taskList.printTaskList(
+                    john.taskList.getFilteredTaskList(str));
             } else {
                 try {
                     Task task = InputTaskParser.createTask(userInput);

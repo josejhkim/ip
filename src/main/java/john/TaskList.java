@@ -3,6 +3,7 @@ package john;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import john.task.Task;
 
@@ -126,6 +127,12 @@ public class TaskList {
      */
     public List<Task> getTaskList() {
         return Collections.unmodifiableList(taskList);
+    }
+
+    public List<Task> getFilteredTaskList(String str) {
+        return this.taskList.stream()
+            .filter(task -> task.getDescription().contains(str)).collect(Collectors.toList());
+
     }
 
     /**
