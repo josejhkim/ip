@@ -129,9 +129,16 @@ public class TaskList {
         return Collections.unmodifiableList(taskList);
     }
 
+    /**
+     * Returns the filtered list of the current task list
+     * based on the given keyword.
+     * @param str
+     * @return Filtered list of tasks based on the given keyword
+     */
     public List<Task> getFilteredTaskList(String str) {
         return this.taskList.stream()
-            .filter(task -> task.getDescription().contains(str)).collect(Collectors.toList());
+            .filter(task -> task.getDescription().contains(str))
+            .collect(Collectors.toList());
 
     }
 
