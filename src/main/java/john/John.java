@@ -99,4 +99,45 @@ public class John {
 
         john.ui.printGoodbye();
     }
+
+    public String getResponse(String userInput) {
+        if (userInput.equals("bye")) {
+            return ui.sayGoodbye();
+
+        } else if (userInput.startsWith("mark ")) {
+            int index = Integer.parseInt(userInput.substring(5)) - 1;
+            taskList.markAsDoneFromTaskList(index);
+            return ui.sayMarkAsDone(taskList.getDescription(index));
+
+        } else if (userInput.startsWith("unmark ")) {
+            int index = Integer.parseInt(userInput.substring(7)) - 1;
+            taskList.unmarkAsDoneFromTaskList(index);
+            return ui.sayUnmarkAsDone(taskList.getDescription(index));
+
+        } else if (userInput.startsWith("delete ")) {
+            int index = Integer.parseInt(userInput.substring(7)) - 1;
+            Task task = taskList.deleteFromTaskList(index);
+            return ui.sayTaskDeletion(task);
+
+        } else if (userInput.equals("list")) {
+            if (taskList.isEmpty()) {
+                return ui.sayEmptyList();
+            } else {
+                return taskList.getCurrentTaskListAsString();
+            }
+        } else if (userInput.startsWith("find ")) {
+            String str = userInput.substring(5);
+
+            return taskList.getTaskListAsString(
+                taskList.getFilteredTaskList(str));
+        } else {
+            try {
+                Task task = InputTaskParser.createTask(userInput);
+                taskList.addTask(task);
+                return ui.sayTaskAddition(task);
+            } catch (JohnException je) {
+                return ui.sayInvalidCommand();
+            }
+        }
+    }
 }
