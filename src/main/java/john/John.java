@@ -30,7 +30,7 @@ public class John {
         } catch (FileNotFoundException e) {
             taskList = new TaskList();
             ui.printFileReadError(filePath);
-            ui.linebreak();
+            ui.printLinebreak();
         }
     }
 
@@ -47,9 +47,9 @@ public class John {
         Scanner myObj = new Scanner(System.in);
 
         while (true) {
-            john.ui.linebreak();
+            john.ui.printLinebreak();
             String userInput = myObj.nextLine();
-            john.ui.linebreak();
+            john.ui.printLinebreak();
 
             if (userInput.equals("bye")) {
                 break;

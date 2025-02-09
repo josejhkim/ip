@@ -11,7 +11,7 @@ public class Ui {
      * Print the hello message.
      */
     public void printHello() {
-        linebreak();
+        printLinebreak();
         System.out.println("Hello! I'm John, "
             + "your personalized assistant chatbot");
         System.out.println("How can I help you today?");
@@ -22,13 +22,13 @@ public class Ui {
      */
     public void printGoodbye() {
         System.out.println("Goodbye and have a nice day!");
-        linebreak();
+        printLinebreak();
     }
 
     /**
      * Print a visible line break
      */
-    public void linebreak() {
+    public void printLinebreak() {
         System.out.println("----------------------------"
             + "--------------------------------");
     }
