@@ -36,6 +36,10 @@ public class TaskList {
         return this.taskList.isEmpty();
     }
 
+    public int getSize() {
+        return this.taskList.size();
+    }
+
     /**
      * Add the given task to the task list.
      * @param task
