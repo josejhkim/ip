@@ -120,6 +120,19 @@ public class TaskList {
         printTaskList(this.taskList);
     }
 
+    public String getTaskListAsString(List<Task> tasklist) {
+        String ret = "";
+        int index = 1;
+        for (Task task : taskList) {
+            ret += index++ + ". " + task.toString() + "\n";
+        }
+        return ret;
+    }
+
+    public String getCurrentTaskListAsString() {
+        return getTaskListAsString(this.taskList);
+    }
+
     /**
      * Returns an unmodifiable List of Tasks
      * based on the currently stored task list.
