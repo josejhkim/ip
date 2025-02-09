@@ -102,6 +102,7 @@ public class John {
 
     public String getResponse(String userInput) {
         if (userInput.equals("bye")) {
+            storage.writeTaskListToFile(taskList.getTaskList());
             return ui.sayGoodbye();
 
         } else if (userInput.startsWith("mark ")) {
