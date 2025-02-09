@@ -111,12 +111,10 @@ public class John {
                 return ui.sayMarkAsDone(taskList.getDescription(index));
 
             } catch (IndexOutOfBoundsException ioobe) {
-               return ("please input a proper index "
-                    + "less than or equal to " + taskList.getSize());
-    
+                return ui.sayOutOfBoundsError(taskList.getSize());
+
             } catch (NumberFormatException nfe) {
-                return ("please input a proper index "
-                    + "in a numerical format");
+                return ui.sayNumberFormatError();
             }
 
         } else if (userInput.startsWith("unmark ")) {
@@ -127,12 +125,10 @@ public class John {
                 return ui.sayUnmarkAsDone(taskList.getDescription(index));
     
             } catch (IndexOutOfBoundsException ioobe) {
-                return ("please input a proper index "
-                    + "less than or equal to " + taskList.getSize());
-    
+                return ui.sayOutOfBoundsError(taskList.getSize());
+
             } catch (NumberFormatException nfe) {
-                return ("please input a proper index "
-                    + "in a numerical format");
+                return ui.sayNumberFormatError();
             }
 
         } else if (userInput.startsWith("delete ")) {
@@ -142,12 +138,10 @@ public class John {
                 return ui.sayTaskDeletion(task);
 
             } catch (IndexOutOfBoundsException ioobe) {
-                return ("please input a proper index "
-                    + "less than or equal to " + taskList.getSize());
-                    
+                return ui.sayOutOfBoundsError(taskList.getSize());
+
             } catch (NumberFormatException nfe) {
-                return ("please input a proper index "
-                    + "in a numerical format");
+                return ui.sayNumberFormatError();
             }
 
         } else if (userInput.equals("list")) {

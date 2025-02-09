@@ -143,4 +143,14 @@ public class Ui {
                 + filePath + "\n"
                 + "Initializing an empty task list";
     }
+
+    public String sayOutOfBoundsError(int limit) {
+        return ("please input a proper index "
+        + "less than or equal to " + limit);
+    }
+
+    public String sayNumberFormatError() {
+        return ("please enter a proper input "
+        + "in a numerical format");
+    }
 }
