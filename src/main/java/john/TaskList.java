@@ -36,6 +36,10 @@ public class TaskList {
         return this.taskList.isEmpty();
     }
 
+    public int getSize() {
+        return this.taskList.size();
+    }
+
     /**
      * Add the given task to the task list.
      * @param task
@@ -49,17 +53,7 @@ public class TaskList {
      * @param index
      */
     public void markAsDoneFromTaskList(int index) {
-        try {
-            this.taskList.get(index).markAsDone();
-
-        } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("please input a proper index "
-                + "less than or equal to " + this.taskList.size());
-
-        } catch (NumberFormatException nfe) {
-            System.out.println("please input a proper index "
-                + "in a numerical format");
-        }
+        this.taskList.get(index).markAsDone();
     }
 
     /**
@@ -67,37 +61,18 @@ public class TaskList {
      * @param index
      */
     public void unmarkAsDoneFromTaskList(int index) {
-        try {
-            taskList.get(index).unmarkAsDone();
-
-        } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("please input a proper index "
-                + "less than or equal to " + taskList.size());
-
-        } catch (NumberFormatException nfe) {
-            System.out.println("please input a proper index "
-                + "in a numerical format");
-        }
+        taskList.get(index).unmarkAsDone();
     }
-
+    
     /**
      * Delete the task from the task list at the specified index.
      * @param index
      * @return Task deleted from the list at the specified index
      */
     public Task deleteFromTaskList(int index) {
-        try {
-            Task task = this.taskList.get(index);
-            this.taskList.remove(index);
-            return task;
-        } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("please input a proper index "
-                + "less than or equal to " + this.taskList.size());
-        } catch (NumberFormatException nfe) {
-            System.out.println("please input a proper index "
-                + "in a numerical format");
-        }
-        return null;
+        Task task = this.taskList.get(index);
+        this.taskList.remove(index);
+        return task;
     }
 
     /**
@@ -118,6 +93,19 @@ public class TaskList {
      */
     public void printCurrentTaskList() {
         printTaskList(this.taskList);
+    }
+
+    public String getTaskListAsString(List<Task> tasklist) {
+        String ret = "";
+        int index = 1;
+        for (Task task : taskList) {
+            ret += index++ + ". " + task.toString() + "\n";
+        }
+        return ret;
+    }
+
+    public String getCurrentTaskListAsString() {
+        return getTaskListAsString(this.taskList);
     }
 
     /**
@@ -151,6 +139,7 @@ public class TaskList {
         try {
             return this.taskList.get(index).getDescription();
 
+        //Shouldn't reach here as other methods will throw an exception first
         } catch (IndexOutOfBoundsException ioobe) {
             System.out.println("please input a proper index "
                 + "less than or equal to " + taskList.size());

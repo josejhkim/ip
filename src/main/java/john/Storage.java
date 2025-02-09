@@ -60,6 +60,7 @@ public class Storage {
                 System.out.println("Unable to parse task for " + taskString);
             }
         }
+        s.close();
         return taskList;
     }
 }

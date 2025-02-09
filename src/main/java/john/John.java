@@ -30,7 +30,7 @@ public class John {
         } catch (FileNotFoundException e) {
             taskList = new TaskList();
             ui.printFileReadError(filePath);
-            ui.linebreak();
+            ui.printLinebreak();
         }
     }
 
@@ -47,9 +47,9 @@ public class John {
         Scanner myObj = new Scanner(System.in);
 
         while (true) {
-            john.ui.linebreak();
+            john.ui.printLinebreak();
             String userInput = myObj.nextLine();
-            john.ui.linebreak();
+            john.ui.printLinebreak();
 
             if (userInput.equals("bye")) {
                 break;
@@ -98,5 +98,72 @@ public class John {
         john.storage.writeTaskListToFile(john.taskList.getTaskList());
 
         john.ui.printGoodbye();
+    }
+
+    public String getResponse(String userInput) {
+        if (userInput.equals("bye")) {
+            storage.writeTaskListToFile(taskList.getTaskList());
+            return ui.sayGoodbye();
+
+        } else if (userInput.startsWith("mark ")) {
+            int index = Integer.parseInt(userInput.substring(5)) - 1;
+            try {
+                taskList.markAsDoneFromTaskList(index);
+                return ui.sayMarkAsDone(taskList.getDescription(index));
+
+            } catch (IndexOutOfBoundsException ioobe) {
+                return ui.sayOutOfBoundsError(taskList.getSize());
+
+            } catch (NumberFormatException nfe) {
+                return ui.sayNumberFormatError();
+            }
+
+        } else if (userInput.startsWith("unmark ")) {
+            int index = Integer.parseInt(userInput.substring(7)) - 1;
+
+            try {
+                taskList.unmarkAsDoneFromTaskList(index);
+                return ui.sayUnmarkAsDone(taskList.getDescription(index));
+    
+            } catch (IndexOutOfBoundsException ioobe) {
+                return ui.sayOutOfBoundsError(taskList.getSize());
+
+            } catch (NumberFormatException nfe) {
+                return ui.sayNumberFormatError();
+            }
+
+        } else if (userInput.startsWith("delete ")) {
+            try {
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                Task task = taskList.deleteFromTaskList(index);
+                return ui.sayTaskDeletion(task);
+
+            } catch (IndexOutOfBoundsException ioobe) {
+                return ui.sayOutOfBoundsError(taskList.getSize());
+
+            } catch (NumberFormatException nfe) {
+                return ui.sayNumberFormatError();
+            }
+
+        } else if (userInput.equals("list")) {
+            if (taskList.isEmpty()) {
+                return ui.sayEmptyList();
+            } else {
+                return taskList.getCurrentTaskListAsString();
+            }
+        } else if (userInput.startsWith("find ")) {
+            String str = userInput.substring(5);
+
+            return taskList.getTaskListAsString(
+                taskList.getFilteredTaskList(str));
+        } else {
+            try {
+                Task task = InputTaskParser.createTask(userInput);
+                taskList.addTask(task);
+                return ui.sayTaskAddition(task);
+            } catch (JohnException je) {
+                return ui.sayInvalidCommand();
+            }
+        }
     }
 }
