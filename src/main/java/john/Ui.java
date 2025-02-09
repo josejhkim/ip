@@ -17,6 +17,13 @@ public class Ui {
         System.out.println("How can I help you today?");
     }
 
+    public String sayHello() {
+        return """
+               Hello! I'm John, your personalized assistant chatbot!
+               How can I help you today?
+               """;
+    }
+
     /**
      * Print the goodbye message.
      */
@@ -25,12 +32,18 @@ public class Ui {
         printLinebreak();
     }
 
+    public String sayGoodbye() {
+        return """
+                Goodbye and have a nice day!
+                """;
+    }
+
     /**
      * Print a visible line break
      */
     public void printLinebreak() {
         System.out.println("----------------------------"
-            + "--------------------------------");
+                + "--------------------------------");
     }
 
     /**
@@ -43,6 +56,12 @@ public class Ui {
         System.out.println("to your list!");
     }
 
+    public String sayTaskAddition(Task task) {
+        return "added \n"
+                + task.toString() + "\n"
+                + "to your list!";
+    }
+
     /**
      * Print the given task as being deleted
      * @param task
@@ -53,12 +72,22 @@ public class Ui {
         System.out.println("from your list!");
     }
 
+    public String sayTaskDeletion(Task task) {
+        return "removed \n"
+                + task.toString() + "\n"
+                + "from your list!";
+    }
+
     /**
      * Print the given task description as done
      * @param description
      */
     public void printMarkAsDone(String description) {
         System.out.println("marking \"" + description + "\" as done!");
+    }
+
+    public String sayMarkAsDone(String description) {
+        return "marking \"" + description + "\" as done!";
     }
 
     /**
@@ -69,6 +98,10 @@ public class Ui {
         System.out.println("marking \"" + description + "\" as not done!");
     }
 
+    public String sayUnmarkAsDone(String description) {
+        return "marking \"" + description + "\" as done!";
+    }
+
     /**
      * Print a notification saying the list is empty
      */
@@ -77,11 +110,22 @@ public class Ui {
         System.out.println("type in any item to add it to your list!");
     }
 
+    public String sayEmptyList() {
+        return """
+                your list is currently empty!
+                type in any item to add it to your list!
+                """;
+    }
+
     /**
      * Print a notification saying the command is invalid
      */
     public void printInvalidCommand() {
         System.out.println("please input a proper command!");
+    }
+
+    public String sayInvalidCommand() {
+        return "please input a proper command!";
     }
 
     /**
@@ -92,5 +136,11 @@ public class Ui {
         System.out.println("Error loading tasks "
             + "from the file location at " + filePath);
         System.out.println("Initializing an empty task list");
+    }
+
+    public String sayPrintFileReadError(String filePath) {
+        return "Error loading tasks from the file location at "
+                + filePath + "\n"
+                + "Initializing an empty task list";
     }
 }
