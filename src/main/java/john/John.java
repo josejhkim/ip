@@ -106,18 +106,49 @@ public class John {
 
         } else if (userInput.startsWith("mark ")) {
             int index = Integer.parseInt(userInput.substring(5)) - 1;
-            taskList.markAsDoneFromTaskList(index);
-            return ui.sayMarkAsDone(taskList.getDescription(index));
+            try {
+                taskList.markAsDoneFromTaskList(index);
+                return ui.sayMarkAsDone(taskList.getDescription(index));
+
+            } catch (IndexOutOfBoundsException ioobe) {
+               return ("please input a proper index "
+                    + "less than or equal to " + taskList.getSize());
+    
+            } catch (NumberFormatException nfe) {
+                return ("please input a proper index "
+                    + "in a numerical format");
+            }
 
         } else if (userInput.startsWith("unmark ")) {
             int index = Integer.parseInt(userInput.substring(7)) - 1;
-            taskList.unmarkAsDoneFromTaskList(index);
-            return ui.sayUnmarkAsDone(taskList.getDescription(index));
+
+            try {
+                taskList.unmarkAsDoneFromTaskList(index);
+                return ui.sayUnmarkAsDone(taskList.getDescription(index));
+    
+            } catch (IndexOutOfBoundsException ioobe) {
+                return ("please input a proper index "
+                    + "less than or equal to " + taskList.getSize());
+    
+            } catch (NumberFormatException nfe) {
+                return ("please input a proper index "
+                    + "in a numerical format");
+            }
 
         } else if (userInput.startsWith("delete ")) {
-            int index = Integer.parseInt(userInput.substring(7)) - 1;
-            Task task = taskList.deleteFromTaskList(index);
-            return ui.sayTaskDeletion(task);
+            try {
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                Task task = taskList.deleteFromTaskList(index);
+                return ui.sayTaskDeletion(task);
+
+            } catch (IndexOutOfBoundsException ioobe) {
+                return ("please input a proper index "
+                    + "less than or equal to " + taskList.getSize());
+                    
+            } catch (NumberFormatException nfe) {
+                return ("please input a proper index "
+                    + "in a numerical format");
+            }
 
         } else if (userInput.equals("list")) {
             if (taskList.isEmpty()) {
