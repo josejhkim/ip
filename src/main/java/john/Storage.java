@@ -23,6 +23,8 @@ public class Storage {
      * @param filePath
      */
     public Storage(String filePath) {
+        assert filePath.length() > 0 : "filePath isn't empty";
+
         this.filePath = filePath;
     }
 

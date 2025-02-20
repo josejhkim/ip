@@ -21,6 +21,8 @@ public class Ui {
     }
 
     public String sayTaskAddition(Task task) {
+        assert task != null : "The printed task shouldn't be null";
+
         return "added"
                 + "\n"
                 + task.toString()
@@ -29,6 +31,8 @@ public class Ui {
     }
 
     public String sayTaskDeletion(Task task) {
+        assert task != null : "The printed task shouldn't be null";
+
         return "removed"
                 + "\n"
                 + task.toString()
@@ -37,10 +41,16 @@ public class Ui {
     }
 
     public String sayMarkAsDone(String description) {
+        assert description != null :
+            "The printed description shouldn't be null";
+
         return "marking \"" + description + "\" as done!";
     }
 
     public String sayUnmarkAsDone(String description) {
+        assert description != null :
+            "The printed description shouldn't be null";
+
         return "marking \"" + description + "\" as done!";
     }
 
@@ -56,6 +66,8 @@ public class Ui {
     }
 
     public String sayPrintFileReadError(String filePath) {
+        assert filePath.length() > 0 : "The given filePath shouldn't be empty";
+
         return "Error loading tasks from the file location at "
                 + filePath
                 + "\n"
