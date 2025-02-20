@@ -44,6 +44,8 @@ public class FileTaskParser {
                 todo.markAsDone();
             }
 
+            todo.setExpenseFromTaskString(input);
+
             return todo;
         } catch (StringIndexOutOfBoundsException sioobe) {
             throw new JohnException(Task.INVALID_FORMAT_ERROR);
@@ -77,6 +79,8 @@ public class FileTaskParser {
                 dl.markAsDone();
             }
 
+            dl.setExpenseFromTaskString(input);
+
             return dl;
         } catch (DateTimeParseException | StringIndexOutOfBoundsException
                 invalidFormattingException) {
@@ -107,6 +111,8 @@ public class FileTaskParser {
             if (isDone) {
                 event.markAsDone();
             }
+
+            event.setExpenseFromTaskString(input);
 
             return event;
         } catch (StringIndexOutOfBoundsException sioobe) {

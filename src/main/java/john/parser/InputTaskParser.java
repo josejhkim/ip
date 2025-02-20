@@ -38,6 +38,8 @@ public class InputTaskParser {
                 throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
 
+            Todo todo = new Todo(desc);
+            todo.setExpenseFromTaskString(input);
             return new Todo(desc);
         } catch (StringIndexOutOfBoundsException sioobe) {
             //This shouldn't happen but just in case
@@ -66,7 +68,9 @@ public class InputTaskParser {
                 throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
 
-            return new Deadline(desc, deadline);
+            Deadline dl = new Deadline(desc, deadline);
+            dl.setExpenseFromTaskString(input);
+            return dl;
         } catch (DateTimeParseException | StringIndexOutOfBoundsException
             dtpe) {
             throw new JohnException(Deadline.DEADLINE_FORMAT_ERROR);
@@ -91,7 +95,9 @@ public class InputTaskParser {
 
             String desc = input.substring(START_DESC_EVENT, fromIndex);
 
-            return new Event(desc, from, to);
+            Event event = new Event(desc, from, to);
+            event.setExpenseFromTaskString(input);
+            return event;
         } catch (StringIndexOutOfBoundsException sioobe) {
             throw new JohnException(Event.EVENT_FORMAT_ERROR);
         }

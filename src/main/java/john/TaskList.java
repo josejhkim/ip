@@ -109,6 +109,16 @@ public class TaskList {
         return Collections.unmodifiableList(this.taskList);
     }
 
+    public int getTotalExpense() {
+        int totalExpense = 0;
+
+        for (Task task : this.taskList) {
+            totalExpense += task.getExpense();
+        }
+
+        return totalExpense;
+    }
+
     /**
      * Returns the filtered list of the current task list
      * based on the given keyword.

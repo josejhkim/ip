@@ -54,6 +54,10 @@ public class Ui {
         return "marking \"" + description + "\" as done!";
     }
 
+    public String sayTotalExpense(int expense) {
+        return "your total expense from all the tasks are: " + expense;
+    }
+
     public String sayEmptyList() {
         return """
                 your list is currently empty!

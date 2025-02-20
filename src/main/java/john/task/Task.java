@@ -1,5 +1,8 @@
 package john.task;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Task class for storing information regarding user's tasks
  */
@@ -10,6 +13,8 @@ public class Task {
     public static final String INVALID_FORMAT_ERROR = "invalid task formatting";
     public static final String EMPTY_DESCRIPTION_ERROR = "please input a proper task description";
 
+    private int expense;
+
     /**
      * Create a new task object with the given description
      * @param description
@@ -19,6 +24,31 @@ public class Task {
 
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Gets the expense from given string for the task
+     * if there is one, and set it to this task's expense
+     * If not, set this task's expense to 0
+     *
+     * @param taskString
+     * @return
+     */
+    public void setExpenseFromTaskString(String taskString) {
+        Pattern pattern = Pattern.compile("\\$\\{(\\d+)\\}");
+        Matcher matcher = pattern.matcher(taskString);
+
+        if (!matcher.find()) {
+            // Parse the captured group (number) into an integer.
+            this.expense = 0;
+            return;
+        }
+
+        this.expense = Integer.parseInt(matcher.group(1));
+    }
+
+    public int getExpense() {
+        return this.expense;
     }
 
     /**
@@ -59,6 +89,7 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] "
-                + this.description;
+                + this.description
+                + (this.expense > 0 ? "${" + this.expense + "}" : "");
     }
 }

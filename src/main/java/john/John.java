@@ -91,6 +91,12 @@ public class John {
         }
     }
 
+    public String getTotalExpense() {
+        int totalExpense = this.taskList.getTotalExpense();
+
+        return ui.sayTotalExpense(totalExpense);
+    }
+
     public String filterTasklist(String userInput) {
         String str = userInput.substring(5);
 
@@ -109,6 +115,9 @@ public class John {
 
         } else if (userInput.equals("list")) {
             return getTasklistString();
+
+        } else if (userInput.equals("expense")) {
+            return getTotalExpense();
 
         } else if (userInput.startsWith("mark ")) {
             return markTask(userInput);
