@@ -33,9 +33,12 @@ public class Storage {
     public void writeTaskListToFile(List<Task> taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
+
             for (Task task: taskList) {
                 fw.write(task.toString() + System.lineSeparator());
+
             }
+
             fw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -49,10 +52,14 @@ public class Storage {
      */
     public TaskList getTaskListFromFile() throws FileNotFoundException {
         File f = new File(filePath);
+
         Scanner s = new Scanner(f);
+
         TaskList taskList = new TaskList();
+
         while (s.hasNext()) {
             String taskString = s.nextLine();
+
             try {
                 Task t = FileTaskParser.readTask(taskString);
                 taskList.addTask(t);
@@ -60,7 +67,9 @@ public class Storage {
                 System.out.println("Unable to parse task for " + taskString);
             }
         }
+
         s.close();
+
         return taskList;
     }
 }

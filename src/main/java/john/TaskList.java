@@ -81,6 +81,7 @@ public class TaskList {
         for (Task task : this.taskList) {
             String indexString = index++ + ". ";
             String taskStringWithNewLine = task.toString() + "\n";
+
             taskListString += indexString + taskStringWithNewLine;
         }
 
