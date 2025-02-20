@@ -12,6 +12,7 @@ public class Task {
      * @param description
      */
     public Task(String description) {
+        assert description.length() > 0 : "Description shouldn't be empty";
         this.description = description;
         this.isDone = false;
     }

@@ -51,12 +51,15 @@ public class Ui {
      * @param task
      */
     public void printTaskAddition(Task task) {
+        assert task != null : "The printed task shouldn't be null";
         System.out.println("added");
         System.out.println(task);
         System.out.println("to your list!");
     }
 
     public String sayTaskAddition(Task task) {
+        assert task != null : "The printed task shouldn't be null";
+
         return "added \n"
                 + task.toString() + "\n"
                 + "to your list!";
@@ -67,12 +70,16 @@ public class Ui {
      * @param task
      */
     public void printTaskDeletion(Task task) {
+        assert task != null : "The printed task shouldn't be null";
+
         System.out.println("removed");
         System.out.println(task);
         System.out.println("from your list!");
     }
 
     public String sayTaskDeletion(Task task) {
+        assert task != null : "The printed task shouldn't be null";
+
         return "removed \n"
                 + task.toString() + "\n"
                 + "from your list!";
@@ -83,10 +90,16 @@ public class Ui {
      * @param description
      */
     public void printMarkAsDone(String description) {
+        assert description != null :
+            "The printed description shouldn't be null";
+
         System.out.println("marking \"" + description + "\" as done!");
     }
 
     public String sayMarkAsDone(String description) {
+        assert description != null :
+            "The printed description shouldn't be null";
+
         return "marking \"" + description + "\" as done!";
     }
 
@@ -95,10 +108,16 @@ public class Ui {
      * @param description
      */
     public void printUnmarkAsDone(String description) {
+        assert description != null :
+            "The printed description shouldn't be null";
+
         System.out.println("marking \"" + description + "\" as not done!");
     }
 
     public String sayUnmarkAsDone(String description) {
+        assert description != null :
+            "The printed description shouldn't be null";
+
         return "marking \"" + description + "\" as done!";
     }
 
@@ -133,12 +152,16 @@ public class Ui {
      * @param filePath
      */
     public void printFileReadError(String filePath) {
+        assert filePath.length() > 0 : "The given filePath shouldn't be empty";
+
         System.out.println("Error loading tasks "
             + "from the file location at " + filePath);
         System.out.println("Initializing an empty task list");
     }
 
     public String sayPrintFileReadError(String filePath) {
+        assert filePath.length() > 0 : "The given filePath shouldn't be empty";
+
         return "Error loading tasks from the file location at "
                 + filePath + "\n"
                 + "Initializing an empty task list";
