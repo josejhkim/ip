@@ -138,24 +138,24 @@ public class FileTaskParser {
             } catch (JohnException je) {
                 System.out.println(je.getMessage());
             }
+        }
 
-        } else if (input.startsWith("[D]")) {
+        if (input.startsWith("[D]")) {
             try {
                 return readDeadline(input);
             } catch (JohnException je) {
                 System.out.println(je.getMessage());
             }
+        }
 
-        } else if (input.startsWith("[E]")) {
+        if (input.startsWith("[E]")) {
             try {
                 return readEvent(input);
             } catch (JohnException je) {
                 System.out.println(je.getMessage());
             }
-        } else {
-            throw new JohnException("Can't parse task from storage file");
         }
 
-        return new Task("");
+        throw new JohnException("Can't parse task from storage file");
     }
 }

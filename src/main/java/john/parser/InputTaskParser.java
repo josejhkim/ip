@@ -115,15 +115,16 @@ public class InputTaskParser {
     public static Task createTask(String input) throws JohnException {
         if (input.startsWith("todo ")) {
             return createTodo(input);
-
-        } else if (input.startsWith("deadline ")) {
-            return createDeadline(input);
-
-        } else if (input.startsWith("event ")) {
-            return createEvent(input);
-
-        } else {
-            throw new JohnException("Please input a proper task command");
         }
+
+        if (input.startsWith("deadline ")) {
+            return createDeadline(input);
+        }
+
+        if (input.startsWith("event ")) {
+            return createEvent(input);
+        }
+
+        throw new JohnException("Please input a proper task command");
     }
 }
