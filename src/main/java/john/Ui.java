@@ -16,19 +16,23 @@ public class Ui {
 
     public String sayGoodbye() {
         return """
-                Goodbye and have a nice day!
-                """;
+               Goodbye and have a nice day!
+               """;
     }
 
     public String sayTaskAddition(Task task) {
-        return "added \n"
-                + task.toString() + "\n"
+        return "added"
+                + "\n"
+                + task.toString()
+                + "\n"
                 + "to your list!";
     }
 
     public String sayTaskDeletion(Task task) {
-        return "removed \n"
-                + task.toString() + "\n"
+        return "removed"
+                + "\n"
+                + task.toString()
+                + "\n"
                 + "from your list!";
     }
 
@@ -53,17 +57,19 @@ public class Ui {
 
     public String sayPrintFileReadError(String filePath) {
         return "Error loading tasks from the file location at "
-                + filePath + "\n"
+                + filePath
+                + "\n"
                 + "Initializing an empty task list";
     }
 
     public String sayOutOfBoundsError(int limit) {
-        return ("please input a proper index "
-        + "less than or equal to " + limit);
+        return "please input a proper index "
+                + "less than or equal to "
+                + limit;
     }
 
     public String sayNumberFormatError() {
-        return ("please enter a proper input "
-        + "in a numerical format");
+        return "please enter a proper input "
+                + "in a numerical format";
     }
 }
