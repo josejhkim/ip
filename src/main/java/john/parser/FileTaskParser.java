@@ -14,6 +14,14 @@ import john.task.Todo;
  * Parser class for reading tasks from a file and parsing tasks
  */
 public class FileTaskParser {
+    private static final int START_DESC = "[D][X]".length() + 1;
+    private static final int IS_DONE_INDEX = 4;
+
+    private static final int START_DEADLINE = "(by: ".length() + 1;
+    private static final int LENGTH_DEADLINE = "01 DEC 2021".length();
+
+    private static final int START_FROM = "(from: ".length() + 1;
+    private static final int START_TO = "to: ".length() + 1;
 
     /**
      * Reads a todo task from the file storing the task list
@@ -24,20 +32,21 @@ public class FileTaskParser {
      */
     public static Todo readTodo(String input) throws JohnException {
         try {
-            boolean isDone = input.charAt(4) == ('X');
-            String desc = input.substring(7);
+            String desc = input.substring(START_DESC);
             if (desc.isEmpty()) {
                 throw new JohnException("empty task description");
             }
+
             Todo todo = new Todo(desc);
+
+            boolean isDone = input.charAt(IS_DONE_INDEX) == ('X');
             if (isDone) {
                 todo.markAsDone();
             }
+
             return todo;
         } catch (StringIndexOutOfBoundsException sioobe) {
-            System.out.println("error parsing task!");
-            throw new JohnException("invalid todo formatting "
-                + "when reading todo from file");
+            throw new JohnException(Task.INVALID_FORMAT_ERROR);
         }
     }
 
@@ -51,43 +60,27 @@ public class FileTaskParser {
     public static Deadline readDeadline(String input) throws JohnException {
         try {
             int deadlineIndex = input.indexOf("(by:");
-
-            if (deadlineIndex == -1) {
-                System.out.println("please enter a proper deadline "
-                    + "for this task by formatting it as follows:");
-                System.out.println("deadline return book /by 2025-01-30");
-                throw new JohnException("invalid deadline formatting");
-            }
-
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofPattern("dd MMM yyyy");
-
             LocalDate deadline = LocalDate.parse(input.substring(
-                    deadlineIndex + 5, deadlineIndex + 16), formatter);
+                    deadlineIndex + START_DEADLINE,
+                    deadlineIndex + START_DEADLINE + LENGTH_DEADLINE + 1
+                    ), DateTimeFormatter.ofPattern("dd MMM yyyy"));
 
-            String desc = input.substring(7, deadlineIndex);
-
+            String desc = input.substring(START_DESC, deadlineIndex);
             if (desc.isEmpty()) {
-                System.out.println("please input a proper task description");
                 throw new JohnException("empty task description");
             }
 
             Deadline dl = new Deadline(desc, deadline);
 
-            boolean isDone = input.charAt(4) == ('X');
+            boolean isDone = input.charAt(IS_DONE_INDEX) == ('X');
             if (isDone) {
                 dl.markAsDone();
             }
 
             return dl;
-
         } catch (DateTimeParseException | StringIndexOutOfBoundsException
                 invalidFormattingException) {
-            System.out.println("please enter a proper deadline for this task "
-                    + "by formatting it as follows:");
-            System.out.println("deadline return book /by 2025-01-30");
-            throw new JohnException("invalid deadline formatting");
-
+            throw new JohnException(Deadline.DEADLINE_FORMAT_ERROR);
         }
     }
 
@@ -102,25 +95,22 @@ public class FileTaskParser {
         try {
             int fromIndex = input.indexOf("(from:");
             int toIndex = input.indexOf("to:", fromIndex + 1);
-            String desc = input.substring(7, fromIndex);
-            String from = input.substring(fromIndex + 7, toIndex - 1);
-            String to = input.substring(toIndex + 4);
+
+            String from = input.substring(fromIndex + START_FROM, toIndex - 1);
+            String to = input.substring(toIndex + START_TO);
+
+            String desc = input.substring(START_DESC, fromIndex);
 
             Event event = new Event(desc, from, to);
 
-            boolean isDone = input.charAt(4) == ('X');
+            boolean isDone = input.charAt(IS_DONE_INDEX) == ('X');
             if (isDone) {
                 event.markAsDone();
             }
 
             return event;
-
         } catch (StringIndexOutOfBoundsException sioobe) {
-            System.out.println("please enter a proper event for this task "
-                + "by formatting it as follows:");
-            System.out.println("event wine party "
-                + "/from Sunday 8pm /to Sunday 10pm");
-            throw new JohnException("invalid event formatting");
+            throw new JohnException(Event.EVENT_FORMAT_ERROR);
         }
     }
 
@@ -138,24 +128,24 @@ public class FileTaskParser {
             } catch (JohnException je) {
                 System.out.println(je.getMessage());
             }
+        }
 
-        } else if (input.startsWith("[D]")) {
+        if (input.startsWith("[D]")) {
             try {
                 return readDeadline(input);
             } catch (JohnException je) {
                 System.out.println(je.getMessage());
             }
+        }
 
-        } else if (input.startsWith("[E]")) {
+        if (input.startsWith("[E]")) {
             try {
                 return readEvent(input);
             } catch (JohnException je) {
                 System.out.println(je.getMessage());
             }
-        } else {
-            throw new JohnException("Can't parse task from storage file");
         }
 
-        return new Task("");
+        throw new JohnException("Can't parse task from storage file");
     }
 }

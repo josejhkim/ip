@@ -8,6 +8,11 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    public static final String EVENT_FORMAT_ERROR = "please enter a proper event for this task "
+        + "by formatting it as follows:"
+        + "\n"
+        + "event wine party /from Sunday 8pm /to Sunday 10pm";
+
     /**
      * Create a new event object with the given description and duration.
      * @param description
@@ -19,6 +24,7 @@ public class Event extends Task {
 
         assert from.length() > 0 : "Event start shouldn't be null";
         assert to.length() > 0 : "Event end shouldn't be null";
+
         this.from = from;
         this.to = to;
     }
@@ -31,6 +37,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.from + " to: " + this.to + ")";
+                + " ("
+                + " from: " + this.from
+                + " to: " + this.to
+                + " )";
     }
 }

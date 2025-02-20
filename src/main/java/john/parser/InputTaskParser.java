@@ -14,6 +14,15 @@ import john.task.Todo;
  */
 public class InputTaskParser {
 
+    private static final int START_DESC_TODO = "todo ".length() + 1;
+
+    private static final int START_DESC_DEADLINE = "deadline ".length() + 1;
+    private static final int START_DEADLINE = "/by ".length() + 1;
+
+    private static final int START_DESC_EVENT = "event ".length() + 1;
+    private static final int START_FROM = "/from ".length() + 1;
+    private static final int START_TO = "/to ".length() + 1;
+
     /**
      * Reads the user input and creates a corresponding todo object
      * if the input is valid.
@@ -24,14 +33,15 @@ public class InputTaskParser {
      */
     public static Todo createTodo(String input) throws JohnException {
         try {
-            String desc = input.substring(5);
+            String desc = input.substring(START_DESC_TODO);
             if (desc.isEmpty()) {
-                throw new JohnException("empty task description");
+                throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
+
             return new Todo(desc);
         } catch (StringIndexOutOfBoundsException sioobe) {
             //This shouldn't happen but just in case
-            throw new JohnException("Invalid todo formatting");
+            throw new JohnException(Task.INVALID_FORMAT_ERROR);
         }
 
     }
@@ -48,32 +58,18 @@ public class InputTaskParser {
         try {
             int deadlineIndex = input.indexOf("/by");
 
-            if (deadlineIndex == -1) {
-                System.out.println("please enter a proper deadline "
-                    + "for this task by formatting it as follows:");
-                System.out.println("deadline return book /by 2025-01-30");
-                throw new JohnException("invalid deadline formatting");
-            }
-
             LocalDate deadline = LocalDate.parse(
-                    input.substring(deadlineIndex + 4));
+                    input.substring(START_DEADLINE));
 
-            String desc = input.substring(9, deadlineIndex);
-
+            String desc = input.substring(START_DESC_DEADLINE, deadlineIndex);
             if (desc.isEmpty()) {
-                System.out.println("please input a proper task description");
-                throw new JohnException("empty task description");
+                throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
 
             return new Deadline(desc, deadline);
-
         } catch (DateTimeParseException | StringIndexOutOfBoundsException
-                dtpe) {
-            System.out.println("please enter a proper deadline for this task "
-                    + "by formatting it as follows:");
-            System.out.println("deadline return book /by 2025-01-30");
-            throw new JohnException("invalid deadline formatting");
-
+            dtpe) {
+            throw new JohnException(Deadline.DEADLINE_FORMAT_ERROR);
         }
     }
 
@@ -89,18 +85,15 @@ public class InputTaskParser {
         try {
             int fromIndex = input.indexOf("/from");
             int toIndex = input.indexOf("/to", fromIndex + 1);
-            String desc = input.substring(6, fromIndex);
-            String from = input.substring(fromIndex + 6, toIndex - 1);
-            String to = input.substring(toIndex + 4);
+
+            String from = input.substring(fromIndex + START_FROM, toIndex - 1);
+            String to = input.substring(toIndex + START_TO);
+
+            String desc = input.substring(START_DESC_EVENT, fromIndex);
 
             return new Event(desc, from, to);
-
         } catch (StringIndexOutOfBoundsException sioobe) {
-            System.out.println("please enter a proper event for this task "
-                + "by formatting it as follows:");
-            System.out.println("event wine party "
-                + "/from Sunday 8pm /to Sunday 10pm");
-            throw new JohnException("invalid event formatting");
+            throw new JohnException(Event.EVENT_FORMAT_ERROR);
         }
     }
 
@@ -115,15 +108,16 @@ public class InputTaskParser {
     public static Task createTask(String input) throws JohnException {
         if (input.startsWith("todo ")) {
             return createTodo(input);
-
-        } else if (input.startsWith("deadline ")) {
-            return createDeadline(input);
-
-        } else if (input.startsWith("event ")) {
-            return createEvent(input);
-
-        } else {
-            throw new JohnException("Please input a proper task command");
         }
+
+        if (input.startsWith("deadline ")) {
+            return createDeadline(input);
+        }
+
+        if (input.startsWith("event ")) {
+            return createEvent(input);
+        }
+
+        throw new JohnException("Please input a proper task command");
     }
 }

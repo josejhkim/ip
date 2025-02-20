@@ -7,12 +7,16 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    public static final String INVALID_FORMAT_ERROR = "invalid task formatting";
+    public static final String EMPTY_DESCRIPTION_ERROR = "please input a proper task description";
+
     /**
      * Create a new task object with the given description
      * @param description
      */
     public Task(String description) {
         assert description.length() > 0 : "Description shouldn't be empty";
+
         this.description = description;
         this.isDone = false;
     }
@@ -22,7 +26,6 @@ public class Task {
      * @return String showing whether the task is done or not
      */
     public String getStatusIcon() {
-
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -30,7 +33,6 @@ public class Task {
      * Mark this task as done
      */
     public void markAsDone() {
-
         this.isDone = true;
     }
 
@@ -56,6 +58,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] "
+                + this.description;
     }
 }

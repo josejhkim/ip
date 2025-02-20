@@ -54,6 +54,7 @@ public class TaskList {
      */
     public void markAsDoneFromTaskList(int index) {
         assert index >= 0 : "Index should not be negative";
+
         this.taskList.get(index).markAsDone();
     }
 
@@ -63,11 +64,12 @@ public class TaskList {
      */
     public void unmarkAsDoneFromTaskList(int index) {
         assert index >= 0 : "Index should not be negative";
-        taskList.get(index).unmarkAsDone();
+
+        this.taskList.get(index).unmarkAsDone();
     }
     
     /**
-     * Delete the task from the task list at the specified index.
+     * Delete the task from the task list at the specified index and return it.
      * @param index
      * @return Task deleted from the list at the specified index
      */
@@ -76,38 +78,22 @@ public class TaskList {
         assert this.taskList.size() > 0 :
             "TaskList should have something to delete";
 
-        Task task = this.taskList.get(index);
-        this.taskList.remove(index);
+        Task task = this.taskList.remove(index);
         return task;
     }
 
-    /**
-     * Prints any given List of Tasks.
-     * @param taskList
-     */
-    public void printTaskList(List<Task> taskList) {
-        int index = 1;
-        for (Task task : taskList) {
-            System.out.println(
-                    index++ + ". " + task.toString()
-            );
-        }
-    }
-
-    /**
-     * Prints the currently stored task list.
-     */
-    public void printCurrentTaskList() {
-        printTaskList(this.taskList);
-    }
-
     public String getTaskListAsString(List<Task> tasklist) {
-        String ret = "";
+        String taskListString = "";
         int index = 1;
-        for (Task task : taskList) {
-            ret += index++ + ". " + task.toString() + "\n";
+
+        for (Task task : this.taskList) {
+            String indexString = index++ + ". ";
+            String taskStringWithNewLine = task.toString() + "\n";
+
+            taskListString += indexString + taskStringWithNewLine;
         }
-        return ret;
+
+        return taskListString;
     }
 
     public String getCurrentTaskListAsString() {
@@ -120,7 +106,7 @@ public class TaskList {
      * @return Unmodifiable List of Tasks based on the currently stored task list
      */
     public List<Task> getTaskList() {
-        return Collections.unmodifiableList(taskList);
+        return Collections.unmodifiableList(this.taskList);
     }
 
     /**
@@ -133,7 +119,6 @@ public class TaskList {
         return this.taskList.stream()
             .filter(task -> task.getDescription().contains(str))
             .collect(Collectors.toList());
-
     }
 
     /**
@@ -150,12 +135,13 @@ public class TaskList {
         //Shouldn't reach here as other methods will throw an exception first
         } catch (IndexOutOfBoundsException ioobe) {
             System.out.println("please input a proper index "
-                + "less than or equal to " + taskList.size());
+                + "less than or equal to " + this.taskList.size());
 
         } catch (NumberFormatException nfe) {
             System.out.println("please input a proper index "
                 + "in a numerical format");
         }
+
         return "";
     }
 }
