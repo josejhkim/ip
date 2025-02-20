@@ -7,6 +7,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    public static final String INVALID_FORMAT_ERROR = "invalid task formatting";
+    public static final String EMPTY_DESCRIPTION_ERROR = "please input a proper task description";
+
     /**
      * Create a new task object with the given description
      * @param description

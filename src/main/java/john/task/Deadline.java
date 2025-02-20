@@ -10,8 +10,13 @@ public class Deadline extends Task {
 
     protected LocalDate by;
 
-    private DateTimeFormatter deadlineFormatter =
+    private static final DateTimeFormatter DEADLINE_FORMATTER =
         DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+    public static final String DEADLINE_FORMAT_ERROR = "please enter a proper deadline for this task"
+        + "by formatting it as follows:"
+        + "\n"
+        + "deadline return book /by 2025-01-30";
 
     /**
      * Create a new Deadline object with the given description and deadline.
@@ -34,7 +39,7 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString()
                 + " (by: "
-                + by.format(deadlineFormatter)
+                + by.format(DEADLINE_FORMATTER)
                 + ")";
     }
 }

@@ -8,6 +8,11 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    public static final String EVENT_FORMAT_ERROR = "please enter a proper event for this task "
+        + "by formatting it as follows:"
+        + "\n"
+        + "event wine party /from Sunday 8pm /to Sunday 10pm";
+
     /**
      * Create a new event object with the given description and duration.
      * @param description
