@@ -31,70 +31,100 @@ public class John {
         }
     }
 
+    public String createTask(String userInput) {
+        try {
+            Task task = InputTaskParser.createTask(userInput);
+            taskList.addTask(task);
+            return ui.sayTaskAddition(task);
+        } catch (JohnException je) {
+            return ui.sayInvalidCommand();
+        }
+    }
+
+    public String markTask(String userInput) {
+        int index = Integer.parseInt(userInput.substring(5)) - 1;
+        try {
+            taskList.markAsDoneFromTaskList(index);
+            return ui.sayMarkAsDone(taskList.getDescription(index));
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            return ui.sayOutOfBoundsError(taskList.getSize());
+
+        } catch (NumberFormatException nfe) {
+            return ui.sayNumberFormatError();
+        }
+    }
+
+    public String unmarkTask(String userInput) {
+        int index = Integer.parseInt(userInput.substring(7)) - 1;
+
+        try {
+            taskList.unmarkAsDoneFromTaskList(index);
+            return ui.sayUnmarkAsDone(taskList.getDescription(index));
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            return ui.sayOutOfBoundsError(taskList.getSize());
+
+        } catch (NumberFormatException nfe) {
+            return ui.sayNumberFormatError();
+        }
+    }
+
+    public String deleteTask(String userInput) {
+        try {
+            int index = Integer.parseInt(userInput.substring(7)) - 1;
+            Task task = taskList.deleteFromTaskList(index);
+            return ui.sayTaskDeletion(task);
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            return ui.sayOutOfBoundsError(taskList.getSize());
+
+        } catch (NumberFormatException nfe) {
+            return ui.sayNumberFormatError();
+        }
+    }
+
+    public String getTasklistString() {
+        if (taskList.isEmpty()) {
+            return ui.sayEmptyList();
+        } else {
+            return taskList.getCurrentTaskListAsString();
+        }
+    }
+
+    public String filterTasklist(String userInput) {
+        String str = userInput.substring(5);
+
+        return taskList.getTaskListAsString(
+            taskList.getFilteredTaskList(str));
+    }
+
+    public String exitJohn() {
+        storage.writeTaskListToFile(taskList.getTaskList());
+        return ui.sayGoodbye();
+    }
+
     public String getResponse(String userInput) {
         if (userInput.equals("bye")) {
-            storage.writeTaskListToFile(taskList.getTaskList());
-            return ui.sayGoodbye();
-
-        } else if (userInput.startsWith("mark ")) {
-            int index = Integer.parseInt(userInput.substring(5)) - 1;
-            try {
-                taskList.markAsDoneFromTaskList(index);
-                return ui.sayMarkAsDone(taskList.getDescription(index));
-
-            } catch (IndexOutOfBoundsException ioobe) {
-                return ui.sayOutOfBoundsError(taskList.getSize());
-
-            } catch (NumberFormatException nfe) {
-                return ui.sayNumberFormatError();
-            }
-
-        } else if (userInput.startsWith("unmark ")) {
-            int index = Integer.parseInt(userInput.substring(7)) - 1;
-
-            try {
-                taskList.unmarkAsDoneFromTaskList(index);
-                return ui.sayUnmarkAsDone(taskList.getDescription(index));
-    
-            } catch (IndexOutOfBoundsException ioobe) {
-                return ui.sayOutOfBoundsError(taskList.getSize());
-
-            } catch (NumberFormatException nfe) {
-                return ui.sayNumberFormatError();
-            }
-
-        } else if (userInput.startsWith("delete ")) {
-            try {
-                int index = Integer.parseInt(userInput.substring(7)) - 1;
-                Task task = taskList.deleteFromTaskList(index);
-                return ui.sayTaskDeletion(task);
-
-            } catch (IndexOutOfBoundsException ioobe) {
-                return ui.sayOutOfBoundsError(taskList.getSize());
-
-            } catch (NumberFormatException nfe) {
-                return ui.sayNumberFormatError();
-            }
+            return exitJohn();
 
         } else if (userInput.equals("list")) {
-            if (taskList.isEmpty()) {
-                return ui.sayEmptyList();
-            } else {
-                return taskList.getCurrentTaskListAsString();
-            }
-        } else if (userInput.startsWith("find ")) {
-            String str = userInput.substring(5);
+            return getTasklistString();
 
-            return taskList.getTaskListAsString(
-                taskList.getFilteredTaskList(str));
+        } else if (userInput.startsWith("mark ")) {
+            return markTask(userInput);
+
+        } else if (userInput.startsWith("unmark ")) {
+            return unmarkTask(userInput);
+
+        } else if (userInput.startsWith("delete ")) {
+            return deleteTask(userInput);
+
+        } else if (userInput.startsWith("find ")) {
+            return filterTasklist(userInput);
+
         } else {
-            try {
-                Task task = InputTaskParser.createTask(userInput);
-                taskList.addTask(task);
-                return ui.sayTaskAddition(task);
-            } catch (JohnException je) {
-                return ui.sayInvalidCommand();
-            }
+            return createTask(userInput);
         }
     }
 }
