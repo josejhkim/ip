@@ -21,7 +21,6 @@ public class Task {
      * @return String showing whether the task is done or not
      */
     public String getStatusIcon() {
-
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -29,7 +28,6 @@ public class Task {
      * Mark this task as done
      */
     public void markAsDone() {
-
         this.isDone = true;
     }
 
@@ -55,6 +53,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] "
+                + this.description;
     }
 }
