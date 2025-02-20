@@ -53,6 +53,7 @@ public class TaskList {
      * @param index
      */
     public void markAsDoneFromTaskList(int index) {
+        assert index >= 0 : "Index should not be negative";
         this.taskList.get(index).markAsDone();
     }
 
@@ -61,6 +62,7 @@ public class TaskList {
      * @param index
      */
     public void unmarkAsDoneFromTaskList(int index) {
+        assert index >= 0 : "Index should not be negative";
         taskList.get(index).unmarkAsDone();
     }
     
@@ -70,6 +72,10 @@ public class TaskList {
      * @return Task deleted from the list at the specified index
      */
     public Task deleteFromTaskList(int index) {
+        assert index >= 0 : "Index should not be negative";
+        assert this.taskList.size() > 0 :
+            "TaskList should have something to delete";
+
         Task task = this.taskList.get(index);
         this.taskList.remove(index);
         return task;
@@ -136,6 +142,8 @@ public class TaskList {
      * @return String description of the task stored at the given index
      */
     public String getDescription(int index) {
+        assert index >= 0 : "Index should not be negative";
+
         try {
             return this.taskList.get(index).getDescription();
 
