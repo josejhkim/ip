@@ -1,7 +1,6 @@
 package john;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import john.exception.JohnException;
 import john.parser.InputTaskParser;
