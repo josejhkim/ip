@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import john.exception.JohnException;
 import john.task.Task;
 
 /**
@@ -52,20 +53,36 @@ public class TaskList {
      * Mark the task at the specified index as done.
      * @param index
      */
-    public void markAsDoneFromTaskList(int index) {
+    public void markAsDoneFromTaskList(int index) throws JohnException {
         assert index >= 0 : "Index should not be negative";
 
-        this.taskList.get(index).markAsDone();
+        try {
+            this.taskList.get(index).markAsDone();
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            throw new JohnException("Please input a valid index less than " + this.getSize() + ".");
+
+        } catch (NumberFormatException nfe) {
+            throw new JohnException("Please input a valid numerical index.");
+        }
     }
 
     /**
      * Mark the task at the specified index as not done.
      * @param index
      */
-    public void unmarkAsDoneFromTaskList(int index) {
+    public void unmarkAsDoneFromTaskList(int index) throws JohnException {
         assert index >= 0 : "Index should not be negative";
 
-        this.taskList.get(index).unmarkAsDone();
+        try {
+            this.taskList.get(index).unmarkAsDone();
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            throw new JohnException("Please input a valid index less than " + this.getSize() + ".");
+
+        } catch (NumberFormatException nfe) {
+            throw new JohnException("Please input a valid numerical index.");
+        }
     }
     
     /**
@@ -73,13 +90,21 @@ public class TaskList {
      * @param index
      * @return Task deleted from the list at the specified index
      */
-    public Task deleteFromTaskList(int index) {
+    public Task deleteFromTaskList(int index) throws JohnException{
         assert index >= 0 : "Index should not be negative";
         assert this.taskList.size() > 0 :
             "TaskList should have something to delete";
 
-        Task task = this.taskList.remove(index);
-        return task;
+        try {
+            Task task = this.taskList.remove(index);
+            return task;
+
+        } catch (IndexOutOfBoundsException ioobe) {
+            throw new JohnException("Please input a valid index less than " + this.getSize() + ".");
+
+        } catch (NumberFormatException nfe) {
+            throw new JohnException("Please input a valid numerical index.");
+        }
     }
 
     public String getTaskListAsString(List<Task> tasklist) {
@@ -136,7 +161,7 @@ public class TaskList {
      * @param index
      * @return String description of the task stored at the given index
      */
-    public String getDescription(int index) {
+    public String getDescription(int index) throws JohnException{
         assert index >= 0 : "Index should not be negative";
 
         try {
@@ -144,14 +169,10 @@ public class TaskList {
 
         //Shouldn't reach here as other methods will throw an exception first
         } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("please input a proper index "
-                + "less than or equal to " + this.taskList.size());
+            throw new JohnException("Please input a valid index less than " + this.getSize() + ".");
 
         } catch (NumberFormatException nfe) {
-            System.out.println("please input a proper index "
-                + "in a numerical format");
+            throw new JohnException("Please input a valid numerical index.");
         }
-
-        return "";
     }
 }

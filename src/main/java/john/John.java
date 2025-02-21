@@ -39,6 +39,7 @@ public class John {
             Task task = InputTaskParser.createTask(userInput);
             taskList.addTask(task);
             return ui.sayTaskAddition(task);
+
         } catch (JohnException je) {
             return ui.sayException(je.getMessage());
         }
@@ -50,11 +51,8 @@ public class John {
             taskList.markAsDoneFromTaskList(index);
             return ui.sayMarkAsDone(taskList.getDescription(index));
 
-        } catch (IndexOutOfBoundsException ioobe) {
-            return ui.sayOutOfBoundsError(taskList.getSize());
-
-        } catch (NumberFormatException nfe) {
-            return ui.sayNumberFormatError();
+        } catch (JohnException je) {
+            return ui.sayException(je.getMessage());
         }
     }
 
@@ -65,11 +63,8 @@ public class John {
             taskList.unmarkAsDoneFromTaskList(index);
             return ui.sayUnmarkAsDone(taskList.getDescription(index));
 
-        } catch (IndexOutOfBoundsException ioobe) {
-            return ui.sayOutOfBoundsError(taskList.getSize());
-
-        } catch (NumberFormatException nfe) {
-            return ui.sayNumberFormatError();
+        } catch (JohnException je) {
+            return ui.sayException(je.getMessage());
         }
     }
 
@@ -79,11 +74,8 @@ public class John {
             Task task = taskList.deleteFromTaskList(index);
             return ui.sayTaskDeletion(task);
 
-        } catch (IndexOutOfBoundsException ioobe) {
-            return ui.sayOutOfBoundsError(taskList.getSize());
-
-        } catch (NumberFormatException nfe) {
-            return ui.sayNumberFormatError();
+        } catch (JohnException je) {
+            return ui.sayException(je.getMessage());
         }
     }
 
