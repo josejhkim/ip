@@ -55,7 +55,7 @@ public class Ui {
     }
 
     public String sayTotalExpense(int expense) {
-        return "your total expense from all the tasks are: " + expense;
+        return "your total expense from all the tasks are: $" + expense;
     }
 
     public String sayEmptyList() {
