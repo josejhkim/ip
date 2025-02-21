@@ -13,10 +13,12 @@ public class Deadline extends Task {
     private static final DateTimeFormatter DEADLINE_FORMATTER =
         DateTimeFormatter.ofPattern("dd MMM yyyy");
 
-    public static final String DEADLINE_FORMAT_ERROR = "please enter a proper deadline for this task"
-        + "by formatting it as follows:"
+    public static final String DEADLINE_FORMAT_ERROR = "Please enter a proper deadline for this task "
+        + "by formatting it as follows: "
         + "\n"
-        + "deadline return book /by 2025-01-30";
+        + "deadline return book /by 2025-01-30"
+        + "\n"
+        + "The deadline should be in a YYYY-MM-DD format.";
 
     /**
      * Create a new Deadline object with the given description and deadline.

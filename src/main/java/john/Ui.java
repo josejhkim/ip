@@ -45,7 +45,7 @@ public class Ui {
     public String sayTaskAddition(Task task) {
         assert task != null : "The printed task shouldn't be null";
 
-        return "added"
+        return "Added"
                 + "\n"
                 + task.toString()
                 + "\n"
@@ -55,7 +55,7 @@ public class Ui {
     public String sayTaskDeletion(Task task) {
         assert task != null : "The printed task shouldn't be null";
 
-        return "removed"
+        return "Removed"
                 + "\n"
                 + task.toString()
                 + "\n"
@@ -66,29 +66,29 @@ public class Ui {
         assert description != null :
             "The printed description shouldn't be null";
 
-        return "marking \"" + description + "\" as done!";
+        return "Marking \"" + description + "\" as done!";
     }
 
     public String sayUnmarkAsDone(String description) {
         assert description != null :
             "The printed description shouldn't be null";
 
-        return "marking \"" + description + "\" as done!";
+        return "Marking \"" + description + "\" as done!";
     }
 
     public String sayTotalExpense(int expense) {
-        return "your total expense from all the tasks are: $" + expense;
+        return "Your total expense from all the tasks are: $" + expense;
     }
 
     public String sayEmptyList() {
         return """
-                your list is currently empty!
+                Your list is currently empty!
                 type in any item to add it to your list!
                 """;
     }
 
     public String sayInvalidCommand() {
-        return "please input a proper command!";
+        return "Please input a proper command!";
     }
 
     public String sayPrintFileReadError(String filePath) {
@@ -101,19 +101,21 @@ public class Ui {
     }
 
     public String sayOutOfBoundsError(int limit) {
-        return "please input a proper index "
+        return "Please input a proper index "
                 + "less than or equal to "
                 + limit;
     }
 
     public String sayNumberFormatError() {
-        return "please enter a proper input "
+        return "Please enter a proper input "
                 + "in a numerical format";
     }
 
     public String sayException(String exceptionMsg) {
-        return "you have an exception as follows: "
+        return "There was an error :("
             + "\n"
-            + exceptionMsg;
+            + exceptionMsg
+            + "\n"
+            + "Please try again";
     }
 }

@@ -10,8 +10,11 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public static final String INVALID_FORMAT_ERROR = "invalid task formatting";
-    public static final String EMPTY_DESCRIPTION_ERROR = "please input a proper task description";
+    public static final String INVALID_FORMAT_ERROR =
+        "The formatting of this task is incorrect";
+
+    public static final String EMPTY_DESCRIPTION_ERROR =
+        "Please input a proper task description.";
 
     private int expense;
 

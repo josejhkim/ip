@@ -134,18 +134,20 @@ public class InputTaskParser {
      * @throws JohnException
      */
     public static Task createTask(String input) throws JohnException {
-        if (input.startsWith("todo ")) {
+        String lowerCaseInput = input.toLowerCase();
+
+        if (lowerCaseInput.startsWith("todo")) {
             return createTodo(input);
         }
 
-        if (input.startsWith("deadline ")) {
+        if (lowerCaseInput.startsWith("deadline")) {
             return createDeadline(input);
         }
 
-        if (input.startsWith("event ")) {
+        if (lowerCaseInput.startsWith("event")) {
             return createEvent(input);
         }
-        System.out.println(input);
+
         throw new JohnException("Please input a proper task command");
     }
 }

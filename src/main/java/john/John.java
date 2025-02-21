@@ -122,28 +122,30 @@ public class John {
     }
 
     public String getResponse(String userInput) {
-        if (userInput.equals("bye")) {
+        String lowerCaseInput = userInput.toLowerCase();
+
+        if (lowerCaseInput.equals("bye")) {
             return exitJohn();
 
-        } else if (userInput.equals("list")) {
+        } else if (lowerCaseInput.equals("list")) {
             return getTasklistString();
 
-        } else if (userInput.equals("expense")) {
+        } else if (lowerCaseInput.equals("expense")) {
             return getTotalExpense();
 
-        } else if (userInput.startsWith("mark ")) {
+        } else if (lowerCaseInput.startsWith("mark ")) {
             return markTask(userInput);
 
-        } else if (userInput.startsWith("unmark ")) {
+        } else if (lowerCaseInput.startsWith("unmark ")) {
             return unmarkTask(userInput);
 
-        } else if (userInput.startsWith("delete ")) {
+        } else if (lowerCaseInput.startsWith("delete ")) {
             return deleteTask(userInput);
 
-        } else if (userInput.startsWith("find ")) {
+        } else if (lowerCaseInput.startsWith("find ")) {
             return filterTasklist(userInput);
 
-        } else if (userInput.startsWith("help")) {
+        } else if (lowerCaseInput.startsWith("help")) {
             return getHelp();
 
         } else {
