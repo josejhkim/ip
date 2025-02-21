@@ -23,7 +23,7 @@ public class InputTaskParserTest {
             InputTaskParser.createTask("todo ");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("empty task description", e.getMessage());
+            assertEquals("Please input a proper task description.", e.getMessage());
         }
     }
 
@@ -33,7 +33,9 @@ public class InputTaskParserTest {
             InputTaskParser.createTask("deadline Sunday");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("invalid deadline formatting", e.getMessage());
+            assertEquals("Please enter a proper deadline for this task by formatting it as follows: \n" +
+                "deadline return book /by 2025-01-30\n" +
+                "The deadline should be in a YYYY-MM-DD format.", e.getMessage());
         }
     }
 
@@ -43,7 +45,9 @@ public class InputTaskParserTest {
             InputTaskParser.createTask("deadline /by mon-2025");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("invalid deadline formatting", e.getMessage());
+            assertEquals("Please enter a proper deadline for this task by formatting it as follows: \n" +
+                "deadline return book /by 2025-01-30\n" +
+                "The deadline should be in a YYYY-MM-DD format.", e.getMessage());
         }
     }
 
@@ -53,7 +57,9 @@ public class InputTaskParserTest {
             InputTaskParser.createTask("event /from 01-30-2025");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("invalid event formatting", e.getMessage());
+            assertEquals("Please enter a proper event for this task by formatting it as follows:\n" +
+                "event wine party /from Sunday 8pm /to Sunday 10pm\n" +
+                "The from and the to field can be in any format.", e.getMessage());
         }
     }
 
@@ -63,7 +69,9 @@ public class InputTaskParserTest {
             InputTaskParser.createTask("event /to 01-30-2025 /from 01-29-2025");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("invalid event formatting", e.getMessage());
+            assertEquals("Please enter a proper event for this task by formatting it as follows:\n" +
+                "event wine party /from Sunday 8pm /to Sunday 10pm\n" +
+                "The from and the to field can be in any format.", e.getMessage());
         }
     }
 }
