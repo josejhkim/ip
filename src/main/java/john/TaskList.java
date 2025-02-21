@@ -60,7 +60,7 @@ public class TaskList {
             this.taskList.get(index).markAsDone();
 
         } catch (IndexOutOfBoundsException ioobe) {
-            throw new JohnException("Please input a valid index less than " + this.getSize() + ".");
+            throw new JohnException("Please input a valid index less than or equal to" + this.getSize() + ".");
 
         } catch (NumberFormatException nfe) {
             throw new JohnException("Please input a valid numerical index.");
