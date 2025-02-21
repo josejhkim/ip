@@ -117,6 +117,10 @@ public class John {
         return ui.sayGoodbye();
     }
 
+    public void saveCurrentList() {
+        storage.writeTaskListToFile(taskList.getTaskList());
+    }
+
     public String getResponse(String userInput) {
         if (userInput.equals("bye")) {
             return exitJohn();

@@ -63,5 +63,6 @@ public class MainWindow extends AnchorPane {
             DialogBox.getJohnDialog(response, johnImage)
         );
         userInput.clear();
+        john.saveCurrentList();
     }
 }
