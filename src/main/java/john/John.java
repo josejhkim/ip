@@ -104,6 +104,10 @@ public class John {
             taskList.getFilteredTaskList(str));
     }
 
+    public String getHelp() {
+        return ui.sayHelp();
+    }
+
     public String exitJohn() {
         storage.writeTaskListToFile(taskList.getTaskList());
         return ui.sayGoodbye();
@@ -130,6 +134,9 @@ public class John {
 
         } else if (userInput.startsWith("find ")) {
             return filterTasklist(userInput);
+
+        } else if (userInput.startsWith("help")) {
+            return getHelp();
 
         } else {
             return createTask(userInput);

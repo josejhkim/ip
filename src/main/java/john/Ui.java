@@ -7,6 +7,32 @@ import john.task.Task;
  */
 public class Ui {
 
+    public String sayHelp() {
+        return """
+            Here are some commands you can use to get started!
+
+            List commands
+
+            "list" shows you your current task list
+            "mark X" marks the X-th task as done
+            "unmark X" marks the X-th task as NOT done
+            "delete X" deletes the X-th task from your task list
+            "find X" shows you your current task list 
+                     only with tasks containing X
+            "expense" shows you the total expense from all of your current tasks
+            "bye" exits the app and saves your current task list.
+
+            Task creation commands
+            
+            "todo X" creates a new todo task with the description X
+            "deadline X /by yyyy-mm-dd" creates a new deadline task 
+                                        with the given deadline
+            "event X /from start /to end" creates a new event task 
+                                          with the given duration start and end
+            You can append ${Y} at the end of your task creation commands
+            to denote the expense for that task
+            """;
+    }
     public String sayHello() {
         return """
                Hello! I'm John, your personalized assistant chatbot!
