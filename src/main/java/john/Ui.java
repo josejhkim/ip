@@ -88,4 +88,10 @@ public class Ui {
         return "please enter a proper input "
                 + "in a numerical format";
     }
+
+    public String sayException(String exceptionMsg) {
+        return "you have an exception as follows: "
+            + "\n"
+            + exceptionMsg;
+    }
 }
