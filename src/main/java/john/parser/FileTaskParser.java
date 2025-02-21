@@ -14,14 +14,14 @@ import john.task.Todo;
  * Parser class for reading tasks from a file and parsing tasks
  */
 public class FileTaskParser {
-    private static final int START_DESC = "[D][X]".length() + 1;
+    private static final int START_DESC = "[D][X] ".length();
     private static final int IS_DONE_INDEX = 4;
 
-    private static final int START_DEADLINE = "(by: ".length() + 1;
+    private static final int START_DEADLINE = "(by: ".length();
     private static final int LENGTH_DEADLINE = "01 DEC 2021".length();
 
-    private static final int START_FROM = "(from: ".length() + 1;
-    private static final int START_TO = "to: ".length() + 1;
+    private static final int START_FROM = "(from: ".length();
+    private static final int START_TO = "to: ".length();
 
     /**
      * Reads a todo task from the file storing the task list
@@ -32,14 +32,22 @@ public class FileTaskParser {
      */
     public static Todo readTodo(String input) throws JohnException {
         try {
-            String desc = input.substring(START_DESC);
+            String inputWithoutExpense = input;
+
+            int expenseIndex = input.indexOf("${");
+            if (expenseIndex >= 0) {
+                inputWithoutExpense = input.substring(0, expenseIndex);
+            }
+
+            String desc = inputWithoutExpense.substring(START_DESC);
+
             if (desc.isEmpty()) {
                 throw new JohnException("empty task description");
             }
 
             Todo todo = new Todo(desc);
 
-            boolean isDone = input.charAt(IS_DONE_INDEX) == ('X');
+            boolean isDone = inputWithoutExpense.charAt(IS_DONE_INDEX) == ('X');
             if (isDone) {
                 todo.markAsDone();
             }
@@ -61,20 +69,27 @@ public class FileTaskParser {
      */
     public static Deadline readDeadline(String input) throws JohnException {
         try {
-            int deadlineIndex = input.indexOf("(by:");
+            String inputWithoutExpense = input;
+
+            int expenseIndex = input.indexOf("${");
+            if (expenseIndex >= 0) {
+                inputWithoutExpense = input.substring(0, expenseIndex);
+            }
+
+            int deadlineIndex = inputWithoutExpense.indexOf("(by:");
             LocalDate deadline = LocalDate.parse(input.substring(
                     deadlineIndex + START_DEADLINE,
-                    deadlineIndex + START_DEADLINE + LENGTH_DEADLINE + 1
+                    deadlineIndex + START_DEADLINE + LENGTH_DEADLINE
                     ), DateTimeFormatter.ofPattern("dd MMM yyyy"));
 
-            String desc = input.substring(START_DESC, deadlineIndex);
+            String desc = inputWithoutExpense.substring(START_DESC, deadlineIndex);
             if (desc.isEmpty()) {
                 throw new JohnException("empty task description");
             }
 
             Deadline dl = new Deadline(desc, deadline);
 
-            boolean isDone = input.charAt(IS_DONE_INDEX) == ('X');
+            boolean isDone = inputWithoutExpense.charAt(IS_DONE_INDEX) == ('X');
             if (isDone) {
                 dl.markAsDone();
             }
@@ -97,17 +112,24 @@ public class FileTaskParser {
      */
     public static Event readEvent(String input) throws JohnException {
         try {
-            int fromIndex = input.indexOf("(from:");
-            int toIndex = input.indexOf("to:", fromIndex + 1);
+            String inputWithoutExpense = input;
 
-            String from = input.substring(fromIndex + START_FROM, toIndex - 1);
-            String to = input.substring(toIndex + START_TO);
+            int expenseIndex = input.indexOf("${");
+            if (expenseIndex >= 0) {
+                inputWithoutExpense = input.substring(0, expenseIndex);
+            }
 
-            String desc = input.substring(START_DESC, fromIndex);
+            int fromIndex = inputWithoutExpense.indexOf("(from:");
+            int toIndex = inputWithoutExpense.indexOf("to:", fromIndex + 1);
+
+            String from = inputWithoutExpense.substring(fromIndex + START_FROM, toIndex - 1);
+            String to = inputWithoutExpense.substring(toIndex + START_TO);
+
+            String desc = inputWithoutExpense.substring(START_DESC, fromIndex);
 
             Event event = new Event(desc, from, to);
 
-            boolean isDone = input.charAt(IS_DONE_INDEX) == ('X');
+            boolean isDone = inputWithoutExpense.charAt(IS_DONE_INDEX) == ('X');
             if (isDone) {
                 event.markAsDone();
             }

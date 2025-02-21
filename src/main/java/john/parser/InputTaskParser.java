@@ -14,14 +14,14 @@ import john.task.Todo;
  */
 public class InputTaskParser {
 
-    private static final int START_DESC_TODO = "todo ".length() + 1;
+    private static final int START_DESC_TODO = "todo ".length();
 
-    private static final int START_DESC_DEADLINE = "deadline ".length() + 1;
-    private static final int START_DEADLINE = "/by ".length() + 1;
+    private static final int START_DESC_DEADLINE = "deadline ".length();
+    private static final int START_DEADLINE = "/by ".length();
 
-    private static final int START_DESC_EVENT = "event ".length() + 1;
-    private static final int START_FROM = "/from ".length() + 1;
-    private static final int START_TO = "/to ".length() + 1;
+    private static final int START_DESC_EVENT = "event ".length();
+    private static final int START_FROM = "/from ".length();
+    private static final int START_TO = "/to ".length();
 
     /**
      * Reads the user input and creates a corresponding todo object
@@ -33,14 +33,22 @@ public class InputTaskParser {
      */
     public static Todo createTodo(String input) throws JohnException {
         try {
-            String desc = input.substring(START_DESC_TODO);
+
+            String inputWithoutExpense = input;
+
+            int expenseIndex = input.indexOf("${");
+            if (expenseIndex >= 0) {
+                inputWithoutExpense = input.substring(0, expenseIndex);
+            }
+
+            String desc = inputWithoutExpense.substring(START_DESC_TODO);
             if (desc.isEmpty()) {
                 throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
 
             Todo todo = new Todo(desc);
             todo.setExpenseFromTaskString(input);
-            return new Todo(desc);
+            return todo;
         } catch (StringIndexOutOfBoundsException sioobe) {
             //This shouldn't happen but just in case
             throw new JohnException(Task.INVALID_FORMAT_ERROR);
@@ -58,12 +66,19 @@ public class InputTaskParser {
      */
     public static Deadline createDeadline(String input) throws JohnException {
         try {
-            int deadlineIndex = input.indexOf("/by");
+            String inputWithoutExpense = input;
+
+            int expenseIndex = input.indexOf("${");
+            if (expenseIndex >= 0) {
+                inputWithoutExpense = input.substring(0, expenseIndex);
+            }
+
+            int deadlineIndex = inputWithoutExpense.indexOf("/by");
 
             LocalDate deadline = LocalDate.parse(
-                    input.substring(START_DEADLINE));
+                    inputWithoutExpense.substring(deadlineIndex + START_DEADLINE));
 
-            String desc = input.substring(START_DESC_DEADLINE, deadlineIndex);
+            String desc = inputWithoutExpense.substring(START_DESC_DEADLINE, deadlineIndex);
             if (desc.isEmpty()) {
                 throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
@@ -87,13 +102,20 @@ public class InputTaskParser {
      */
     public static Event createEvent(String input) throws JohnException {
         try {
-            int fromIndex = input.indexOf("/from");
-            int toIndex = input.indexOf("/to", fromIndex + 1);
+            String inputWithoutExpense = input;
 
-            String from = input.substring(fromIndex + START_FROM, toIndex - 1);
-            String to = input.substring(toIndex + START_TO);
+            int expenseIndex = input.indexOf("${");
+            if (expenseIndex >= 0) {
+                inputWithoutExpense = input.substring(0, expenseIndex);
+            }
 
-            String desc = input.substring(START_DESC_EVENT, fromIndex);
+            int fromIndex = inputWithoutExpense.indexOf("/from");
+            int toIndex = inputWithoutExpense.indexOf("/to", fromIndex + 1);
+
+            String from = inputWithoutExpense.substring(fromIndex + START_FROM, toIndex - 1);
+            String to = inputWithoutExpense.substring(toIndex + START_TO);
+
+            String desc = inputWithoutExpense.substring(START_DESC_EVENT, fromIndex);
 
             Event event = new Event(desc, from, to);
             event.setExpenseFromTaskString(input);
@@ -123,7 +145,7 @@ public class InputTaskParser {
         if (input.startsWith("event ")) {
             return createEvent(input);
         }
-
+        System.out.println(input);
         throw new JohnException("Please input a proper task command");
     }
 }

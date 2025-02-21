@@ -24,6 +24,7 @@ public class Task {
 
         this.description = description;
         this.isDone = false;
+        this.expense = 0;
     }
 
     /**
@@ -38,13 +39,10 @@ public class Task {
         Pattern pattern = Pattern.compile("\\$\\{(\\d+)\\}");
         Matcher matcher = pattern.matcher(taskString);
 
-        if (!matcher.find()) {
+        if (matcher.find()) {
             // Parse the captured group (number) into an integer.
-            this.expense = 0;
-            return;
+            this.expense = Integer.parseInt(matcher.group(1));
         }
-
-        this.expense = Integer.parseInt(matcher.group(1));
     }
 
     public int getExpense() {
