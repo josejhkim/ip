@@ -36,7 +36,7 @@ public class John {
             taskList.addTask(task);
             return ui.sayTaskAddition(task);
         } catch (JohnException je) {
-            return ui.sayInvalidCommand();
+            return ui.sayException(je.getMessage());
         }
     }
 
