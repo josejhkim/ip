@@ -30,6 +30,10 @@ public class John {
         }
     }
 
+    public String getHello() {
+        return ui.sayHello();
+    }
+
     public String createTask(String userInput) {
         try {
             Task task = InputTaskParser.createTask(userInput);

@@ -39,6 +39,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the John instance */
     public void setJohn(John j) {
         john = j;
+        dialogContainer.getChildren().addAll(
+            DialogBox.getJohnDialog(j.getHello(), johnImage)
+        );
     }
 
     /**
