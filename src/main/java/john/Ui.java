@@ -76,7 +76,7 @@ public class Ui {
         return "Marking \"" + description + "\" as done!";
     }
 
-    public String sayTotalExpense(int expense) {
+    public String sayTotalExpense(double expense) {
         return "Your total expense from all the tasks are: $" + expense;
     }
 

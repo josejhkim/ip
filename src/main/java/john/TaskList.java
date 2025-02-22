@@ -138,8 +138,8 @@ public class TaskList {
         return Collections.unmodifiableList(this.taskList);
     }
 
-    public int getTotalExpense() {
-        int totalExpense = 0;
+    public double getTotalExpense() {
+        double totalExpense = 0;
 
         for (Task task : this.taskList) {
             totalExpense += task.getExpense();

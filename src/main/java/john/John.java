@@ -88,7 +88,7 @@ public class John {
     }
 
     public String getTotalExpense() {
-        int totalExpense = this.taskList.getTotalExpense();
+        double totalExpense = this.taskList.getTotalExpense();
 
         return ui.sayTotalExpense(totalExpense);
     }

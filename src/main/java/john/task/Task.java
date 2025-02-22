@@ -16,7 +16,7 @@ public class Task {
     public static final String EMPTY_DESCRIPTION_ERROR =
         "Please input a proper task description.";
 
-    private int expense;
+    private double expense;
 
     /**
      * Create a new task object with the given description
@@ -30,25 +30,32 @@ public class Task {
         this.expense = 0;
     }
 
+
     /**
-     * Gets the expense from given string for the task
-     * if there is one, and set it to this task's expense
-     * If not, set this task's expense to 0
-     *
+     * Extracts the first double found for the given task string formatted as ${double},
+     * and sets it as the expense for the task.
+     * If there isn't any, simply return
      * @param taskString
-     * @return
      */
     public void setExpenseFromTaskString(String taskString) {
-        Pattern pattern = Pattern.compile("\\$\\{(\\d+)\\}");
+        Pattern pattern = Pattern.compile("\\$\\{([\\d,]+(?:\\.\\d+)?)\\}");
         Matcher matcher = pattern.matcher(taskString);
 
-        if (matcher.find()) {
-            // Parse the captured group (number) into an integer.
-            this.expense = Integer.parseInt(matcher.group(1));
+        if (!matcher.find()) {
+            return;
+        }
+
+        String numberStr = matcher.group(1).replaceAll(",", "");
+        try {
+            double value = Double.parseDouble(numberStr);
+            // Round to the nearest hundredth (two decimal places).
+            this.expense = Math.round(value * 100.0) / 100.0;
+        } catch (NumberFormatException e) {
+            this.expense = 0.0;
         }
     }
 
-    public int getExpense() {
+    public double getExpense() {
         return this.expense;
     }
 
