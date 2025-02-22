@@ -87,30 +87,6 @@ public class Ui {
                 """;
     }
 
-    public String sayInvalidCommand() {
-        return "Please input a proper command!";
-    }
-
-    public String sayPrintFileReadError(String filePath) {
-        assert filePath.length() > 0 : "The given filePath shouldn't be empty";
-
-        return "Error loading tasks from the file location at "
-                + filePath
-                + "\n"
-                + "Initializing an empty task list";
-    }
-
-    public String sayOutOfBoundsError(int limit) {
-        return "Please input a proper index "
-                + "less than or equal to "
-                + limit;
-    }
-
-    public String sayNumberFormatError() {
-        return "Please enter a proper input "
-                + "in a numerical format";
-    }
-
     public String sayException(String exceptionMsg) {
         return "There was an error :("
             + "\n"
