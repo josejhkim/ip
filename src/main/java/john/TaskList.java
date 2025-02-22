@@ -15,7 +15,7 @@ public class TaskList {
     private List<Task> taskList;
 
     private final String ERROR_INVALID_INDEX = "Please input a valid numerical "
-        + "index less than " + this.getSize() + ".";
+        + "index less than or equal to ";
 
     /**
      * Create a new empty task list
@@ -52,6 +52,10 @@ public class TaskList {
         this.taskList.add(task);
     }
 
+    private String getInvalidIndexMsg() {
+        return this.ERROR_INVALID_INDEX + this.getSize();
+    }
+
     /**
      * Mark the task at the specified index as done.
      * @param index
@@ -63,7 +67,7 @@ public class TaskList {
             this.taskList.get(index).markAsDone();
 
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new JohnException(this.ERROR_INVALID_INDEX);
+            throw new JohnException(this.getInvalidIndexMsg());
         }
     }
 
@@ -78,7 +82,7 @@ public class TaskList {
             this.taskList.get(index).unmarkAsDone();
 
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new JohnException(this.ERROR_INVALID_INDEX);
+            throw new JohnException(this.getInvalidIndexMsg());
         }
     }
     
@@ -97,7 +101,7 @@ public class TaskList {
             return task;
 
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new JohnException(this.ERROR_INVALID_INDEX);
+            throw new JohnException(this.getInvalidIndexMsg());
         }
     }
 
@@ -169,7 +173,7 @@ public class TaskList {
 
         //Shouldn't reach here as other methods will throw an exception first
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new JohnException(this.ERROR_INVALID_INDEX);
+            throw new JohnException(this.getInvalidIndexMsg());
         }
     }
 }
