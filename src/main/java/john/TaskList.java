@@ -14,6 +14,9 @@ import john.task.Task;
 public class TaskList {
     private List<Task> taskList;
 
+    private final String ERROR_INVALID_INDEX = "Please input a valid numerical "
+        + "index less than " + this.getSize() + ".";
+
     /**
      * Create a new empty task list
      */
@@ -59,11 +62,8 @@ public class TaskList {
         try {
             this.taskList.get(index).markAsDone();
 
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw new JohnException("Please input a valid index less than or equal to " + this.getSize() + ".");
-
-        } catch (NumberFormatException nfe) {
-            throw new JohnException("Please input a valid numerical index.");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new JohnException(this.ERROR_INVALID_INDEX);
         }
     }
 
@@ -77,11 +77,8 @@ public class TaskList {
         try {
             this.taskList.get(index).unmarkAsDone();
 
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw new JohnException("Please input a valid index less than " + this.getSize() + ".");
-
-        } catch (NumberFormatException nfe) {
-            throw new JohnException("Please input a valid numerical index.");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new JohnException(this.ERROR_INVALID_INDEX);
         }
     }
     
@@ -99,14 +96,17 @@ public class TaskList {
             Task task = this.taskList.remove(index);
             return task;
 
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw new JohnException("Please input a valid index less than " + this.getSize() + ".");
-
-        } catch (NumberFormatException nfe) {
-            throw new JohnException("Please input a valid numerical index.");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new JohnException(this.ERROR_INVALID_INDEX);
         }
     }
 
+    /**
+     * Return the given List of Tasks in a String format,
+     * with new lines between each task
+     * @param tasklist
+     * @return A string representing the List of Tasks
+     */
     public String getTaskListAsString(List<Task> tasklist) {
         String taskListString = "";
         int index = 1;
@@ -168,11 +168,8 @@ public class TaskList {
             return this.taskList.get(index).getDescription();
 
         //Shouldn't reach here as other methods will throw an exception first
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw new JohnException("Please input a valid index less than " + this.getSize() + ".");
-
-        } catch (NumberFormatException nfe) {
-            throw new JohnException("Please input a valid numerical index.");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new JohnException(this.ERROR_INVALID_INDEX);
         }
     }
 }
