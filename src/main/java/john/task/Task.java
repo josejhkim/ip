@@ -83,6 +83,14 @@ public class Task {
     }
 
     /**
+     * Get the 'is done' status of this task
+     * @return Boolean value for whether this task is done or not
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /**
      * Returns the task object in a string format.
      * Formats the task as "[{statusIcon}] {description}".
      * @return String representation of the task object
