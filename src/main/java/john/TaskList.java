@@ -15,7 +15,7 @@ public class TaskList {
     private List<Task> taskList;
 
     private final String ERROR_INVALID_INDEX = "Please input a valid numerical "
-        + "index less than or equal to ";
+        + "index between 1 and ";
 
     /**
      * Create a new empty task list
