@@ -29,6 +29,7 @@ public class Ui {
             You can append ${Y} at the end of your task creation commands to save Y as the expense for that task
             """;
     }
+
     public String sayHello() {
         return """
                Hello! I'm John, your personalized assistant chatbot!
@@ -42,6 +43,11 @@ public class Ui {
                """;
     }
 
+    /**
+     * Returns a string notifying that the given task has been added.
+     * @param task
+     * @return String representation of the newly added task
+     */
     public String sayTaskAddition(Task task) {
         assert task != null : "The printed task shouldn't be null";
 
@@ -52,6 +58,11 @@ public class Ui {
                 + "to your list!";
     }
 
+    /**
+     * Returns a string notifying that the given task has been deleted.
+     * @param task
+     * @return String representation of the deleted task
+     */
     public String sayTaskDeletion(Task task) {
         assert task != null : "The printed task shouldn't be null";
 
@@ -62,6 +73,11 @@ public class Ui {
                 + "from your list!";
     }
 
+    /**
+     * Returns a string notifying that the given task is marked as done.
+     * @param description
+     * @return String representation of the marked task
+     */
     public String sayMarkAsDone(String description) {
         assert description != null :
             "The printed description shouldn't be null";
@@ -69,6 +85,11 @@ public class Ui {
         return "Marking \"" + description + "\" as done!";
     }
 
+    /**
+     * Returns a string notifying that the given task is marked as not done.
+     * @param description
+     * @return String representation of the marked task
+     */
     public String sayUnmarkAsDone(String description) {
         assert description != null :
             "The printed description shouldn't be null";
@@ -76,6 +97,11 @@ public class Ui {
         return "Marking \"" + description + "\" as done!";
     }
 
+    /**
+     * Returns a string notifying of the current total expense.
+     * @param expense
+     * @return String representation of the current total expense
+     */
     public String sayTotalExpense(double expense) {
         return "Your total expense from all the tasks are: $" + expense;
     }
@@ -87,6 +113,11 @@ public class Ui {
                 """;
     }
 
+    /**
+     * Returns a string alerting an exception with the given exception message.
+     * @param exceptionMsg
+     * @return String notifying of the given exception
+     */
     public String sayException(String exceptionMsg) {
         return "There was an error :("
             + "\n"

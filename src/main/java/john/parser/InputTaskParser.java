@@ -24,12 +24,11 @@ public class InputTaskParser {
     private static final int START_TO = "/to ".length();
 
     /**
-     * Reads the user input and creates a corresponding todo object
-     * if the input is valid.
-     * Otherwise, throw an exception.
+     * Reads the user input and creates a corresponding todo object.
+     * If the input is invalid, throw an exception.
      * @param input
      * @return Todo object based on the user input
-     * @throws JohnException
+     * @throws JohnException if the input is invalid
      */
     public static Todo createTodo(String input) throws JohnException {
         try {
@@ -57,12 +56,11 @@ public class InputTaskParser {
     }
 
     /**
-     * Reads the user input and creates a corresponding deadline object
-     * if the input is valid.
-     * Otherwise, throw an exception.
+     * Reads the user input and creates a corresponding deadline object.
+     * If the input is invalid, throw an exception.
      * @param input
      * @return Deadline object based on the user input
-     * @throws JohnException
+     * @throws JohnException if the input is invalid
      */
     public static Deadline createDeadline(String input) throws JohnException {
         try {
@@ -93,12 +91,11 @@ public class InputTaskParser {
     }
 
     /**
-     * Reads the user input and creates a corresponding event object
-     * if the input is valid.
-     * Otherwise, throw an exception.
+     * Reads the user input and returns a corresponding event object.
+     * If the input is invalid, throw an exception.
      * @param input
      * @return Event object based on the user input
-     * @throws JohnException
+     * @throws JohnException if the input is invalid
      */
     public static Event createEvent(String input) throws JohnException {
         try {
@@ -126,12 +123,11 @@ public class InputTaskParser {
     }
 
     /**
-     * Reads the user input and creates a corresponding task object
-     * if the input is valid.
-     * Otherwise, throw an exception.
+     * Reads the user input and returns a corresponding task object.
+     * If the input is invalid, throw an exception.
      * @param input
      * @return Task object based on the user input
-     * @throws JohnException
+     * @throws JohnException if the input is invalid
      */
     public static Task createTask(String input) throws JohnException {
         String lowerCaseInput = input.toLowerCase();

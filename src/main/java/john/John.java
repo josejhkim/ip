@@ -34,6 +34,11 @@ public class John {
         return ui.sayHello();
     }
 
+    /**
+     * Creates a task based on the given input.
+     * @param userInput
+     * @return String for the description of the newly created task
+     */
     public String createTask(String userInput) {
         try {
             Task task = InputTaskParser.createTask(userInput);
@@ -45,6 +50,11 @@ public class John {
         }
     }
 
+    /**
+     * Marks the task at the given index as done and returns the description.
+     * @param userInput
+     * @return String for the description of the marked task
+     */
     public String markTask(String userInput) {
         int index = Integer.parseInt(userInput.substring(5)) - 1;
         try {
@@ -56,6 +66,11 @@ public class John {
         }
     }
 
+    /**
+     * Marks the task at the given index as not done and returns the description.
+     * @param userInput
+     * @return String for the description of the marked task
+     */
     public String unmarkTask(String userInput) {
         int index = Integer.parseInt(userInput.substring(7)) - 1;
 
@@ -68,6 +83,11 @@ public class John {
         }
     }
 
+    /**
+     * Deletes the task at the given index and returns its description.
+     * @param userInput
+     * @return String for the description of the deleted task
+     */
     public String deleteTask(String userInput) {
         try {
             int index = Integer.parseInt(userInput.substring(7)) - 1;
@@ -79,6 +99,10 @@ public class John {
         }
     }
 
+    /**
+     * Returns the current task list as a string.
+     * @return String for the current task list
+     */
     public String getTasklistString() {
         if (taskList.isEmpty()) {
             return ui.sayEmptyList();
@@ -87,12 +111,21 @@ public class John {
         }
     }
 
+    /**
+     * Returns the total expense of the current task list.
+     * @return Double for the current total expense
+     */
     public String getTotalExpense() {
         double totalExpense = this.taskList.getTotalExpense();
 
         return ui.sayTotalExpense(totalExpense);
     }
 
+    /**
+     * Returns the task list after filtering it with the given input.
+     * @param userInput
+     * @return String for the filtered task list
+     */
     public String filterTasklist(String userInput) {
         String str = userInput.substring(5);
 
@@ -100,19 +133,35 @@ public class John {
             taskList.getFilteredTaskList(str));
     }
 
+    /**
+     * Shows all the available commands to the user.
+     * @return String for all the available commands
+     */
     public String getHelp() {
         return ui.sayHelp();
     }
 
+    /**
+     * Closes the chatbot after saving the list to file.
+     * @return String for the goodbye dialog
+     */
     public String exitJohn() {
-        storage.writeTaskListToFile(taskList.getTaskList());
+        this.saveCurrentList();
         return ui.sayGoodbye();
     }
 
+    /**
+     * Saves the current task list to file.
+     */
     public void saveCurrentList() {
         storage.writeTaskListToFile(taskList.getTaskList());
     }
 
+    /**
+     * Gets the response based on the user input.
+     * @param userInput
+     * @return String for the response from the chatbot.
+     */
     public String getResponse(String userInput) {
         String lowerCaseInput = userInput.toLowerCase();
 

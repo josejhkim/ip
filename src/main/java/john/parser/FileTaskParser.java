@@ -24,11 +24,10 @@ public class FileTaskParser {
     private static final int START_TO = "to: ".length();
 
     /**
-     * Reads a todo task from the file storing the task list
-     * and returns it.
+     * Returns a todo task from a file after reading it.
      * @param input
      * @return Todo object from the given file line input
-     * @throws JohnException
+     * @throws JohnException if the todo can't be read properly
      */
     public static Todo readTodo(String input) throws JohnException {
         try {
@@ -61,11 +60,10 @@ public class FileTaskParser {
     }
 
     /**
-     * Reads a deadline task from the file storing the task list
-     * and returns it.
+     * Returns a deadline task from a file after reading it.
      * @param input
      * @return Deadline object from the given file line input
-     * @throws JohnException
+     * @throws JohnException if the deadline can't be read properly
      */
     public static Deadline readDeadline(String input) throws JohnException {
         try {
@@ -104,11 +102,10 @@ public class FileTaskParser {
     }
 
     /**
-     * Reads an event task from the file storing the task list
-     * and returns it.
+     * Returns an event task from a file after reading it.
      * @param input
      * @return Event object from the given file line input
-     * @throws JohnException
+     * @throws JohnException if the event can't be read properly
      */
     public static Event readEvent(String input) throws JohnException {
         try {
@@ -143,11 +140,11 @@ public class FileTaskParser {
     }
 
     /**
-     * Reads a task from the file storing the task list
-     * and returns the corresponding subclass object
+     * Returns a task from a file after reading it.
+     * The task to be returned can be a todo, deadline, or an event.
      * @param input
      * @return Task object from the given file line input
-     * @throws JohnException
+     * @throws JohnException if the task can't be read properly
      */
     public static Task readTask(String input) throws JohnException {
         if (input.startsWith("[T]")) {

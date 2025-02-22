@@ -5,7 +5,7 @@ package john.task;
  */
 public class Todo extends Task {
     /**
-     * Create a new Todo object with the given description.
+     * Creates a new Todo object with the given description.
      *
      * @param description
      */
@@ -14,7 +14,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the string format of the todo object.
+     * Returns the string format of the todo object.
      * Formats the event as "[T] {description}".
      * @return String format of the todo object
      */

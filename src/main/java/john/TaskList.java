@@ -18,7 +18,7 @@ public class TaskList {
         + "index between 1 and ";
 
     /**
-     * Create a new empty task list
+     * Creates a new empty task list
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class TaskList {
     }
 
     /**
-     * Get whether or not this taskList is empty.
+     * Gets whether or not this taskList is empty.
      * @return boolean value showing if this list is empty
      */
     public boolean isEmpty() {
@@ -45,7 +45,7 @@ public class TaskList {
     }
 
     /**
-     * Add the given task to the task list.
+     * Adds the given task to the task list.
      * @param task
      */
     public void addTask(Task task) {
@@ -57,7 +57,7 @@ public class TaskList {
     }
 
     /**
-     * Mark the task at the specified index as done.
+     * Marks the task at the specified index as done.
      * @param index
      */
     public void markAsDoneFromTaskList(int index) throws JohnException {
@@ -72,7 +72,7 @@ public class TaskList {
     }
 
     /**
-     * Mark the task at the specified index as not done.
+     * Marks the task at the specified index as not done.
      * @param index
      */
     public void unmarkAsDoneFromTaskList(int index) throws JohnException {
@@ -87,7 +87,7 @@ public class TaskList {
     }
     
     /**
-     * Delete the task from the task list at the specified index and return it.
+     * Deletes the task from the task list at the specified index and return it.
      * @param index
      * @return Task deleted from the list at the specified index
      */
@@ -106,7 +106,7 @@ public class TaskList {
     }
 
     /**
-     * Return the given List of Tasks in a String format,
+     * Returns the given List of Tasks in a String format,
      * with new lines between each task
      * @param tasklist
      * @return A string representing the List of Tasks

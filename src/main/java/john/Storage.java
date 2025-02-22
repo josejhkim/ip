@@ -18,8 +18,7 @@ public class Storage {
     private String filePath;
 
     /**
-     * Initialize a Storage object
-     * with the filepath to read and write tasks.
+     * Initializes a Storage object with the filepath to read and write tasks.
      * @param filePath
      */
     public Storage(String filePath) {
@@ -29,7 +28,7 @@ public class Storage {
     }
 
     /**
-     * Write the given List of Tasks to the filepath.
+     * Writes the given List of Tasks to the filepath.
      * @param taskList
      */
     public void writeTaskListToFile(List<Task> taskList) {
@@ -48,7 +47,7 @@ public class Storage {
     }
 
     /**
-     * Read and create a new TaskList from the file at the specified location.
+     * Reads and creates a new TaskList from the file at the specified location.
      * @return TaskList containing the tasks from the specified file
      * @throws FileNotFoundException
      */

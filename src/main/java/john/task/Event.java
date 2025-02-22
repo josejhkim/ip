@@ -15,9 +15,8 @@ public class Event extends Task {
         + "\n"
         + "The from and the to field can be in any format.";
 
-
     /**
-     * Create a new event object with the given description and duration.
+     * Creates a new event object with the given description and duration.
      * @param description
      * @param from
      * @param to

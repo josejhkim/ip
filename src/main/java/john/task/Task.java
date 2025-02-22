@@ -19,7 +19,7 @@ public class Task {
     private double expense;
 
     /**
-     * Create a new task object with the given description
+     * Creates a new task object with the given description.
      * @param description
      */
     public Task(String description) {
@@ -32,9 +32,8 @@ public class Task {
 
 
     /**
-     * Extracts the first double found for the given task string formatted as ${double},
-     * and sets it as the expense for the task.
-     * If there isn't any, simply return
+     * Sets the expense for the task if it's found in the given task string.
+     * If there isn't any, simply return.
      * @param taskString
      */
     public void setExpenseFromTaskString(String taskString) {
@@ -55,12 +54,16 @@ public class Task {
         }
     }
 
+    /**
+     * Gets the expense of this task.
+     * @return Double representing the expense of this task
+     */
     public double getExpense() {
         return this.expense;
     }
 
     /**
-     * Get the status icon of whether the task is done or not
+     * Gets the status icon of whether the task is done or not.
      * @return String showing whether the task is done or not
      */
     public String getStatusIcon() {
@@ -68,21 +71,21 @@ public class Task {
     }
 
     /**
-     * Mark this task as done
+     * Marks this task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark this task as undone
+     * Marks this task as undone.
      */
     public void unmarkAsDone() {
         this.isDone = false;
     }
 
     /**
-     * Get the description of this task
+     * Gets the description of this task.
      * @return String containing the description for this task
      */
     public String getDescription() {
@@ -90,7 +93,7 @@ public class Task {
     }
 
     /**
-     * Get the 'is done' status of this task
+     * Gets the 'is done' status of this task.
      * @return Boolean value for whether this task is done or not
      */
     public boolean getIsDone() {
