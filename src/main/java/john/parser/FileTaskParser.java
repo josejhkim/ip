@@ -55,7 +55,7 @@ public class FileTaskParser {
 
             return todo;
         } catch (StringIndexOutOfBoundsException sioobe) {
-            throw new JohnException(Task.INVALID_FORMAT_ERROR);
+            throw new JohnException(Todo.TODO_FORMAT_ERROR);
         }
     }
 
@@ -123,6 +123,9 @@ public class FileTaskParser {
             String to = inputWithoutExpense.substring(toIndex + START_TO);
 
             String desc = inputWithoutExpense.substring(START_DESC, fromIndex);
+            if (desc.isEmpty()) {
+                throw new JohnException("empty task description");
+            }
 
             Event event = new Event(desc, from, to);
 

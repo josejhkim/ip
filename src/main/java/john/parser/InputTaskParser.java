@@ -50,7 +50,7 @@ public class InputTaskParser {
             return todo;
         } catch (StringIndexOutOfBoundsException sioobe) {
             //This shouldn't happen but just in case
-            throw new JohnException(Task.INVALID_FORMAT_ERROR);
+            throw new JohnException(Todo.TODO_FORMAT_ERROR);
         }
 
     }
@@ -113,6 +113,9 @@ public class InputTaskParser {
             String to = inputWithoutExpense.substring(toIndex + START_TO);
 
             String desc = inputWithoutExpense.substring(START_DESC_EVENT, fromIndex);
+            if (desc.isEmpty()) {
+                throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
+            }
 
             Event event = new Event(desc, from, to);
             event.setExpenseFromTaskString(input);

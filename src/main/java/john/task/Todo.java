@@ -4,6 +4,13 @@ package john.task;
  * Todo class for storing a "todo" task
  */
 public class Todo extends Task {
+
+    public static final String TODO_FORMAT_ERROR =
+        "Please enter a proper todo task "
+            + "by formatting it as follows:"
+            + "\n"
+            + "todo read books";
+
     /**
      * Creates a new Todo object with the given description.
      *

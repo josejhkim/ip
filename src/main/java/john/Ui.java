@@ -122,7 +122,6 @@ public class Ui {
         return "There was an error :("
             + "\n"
             + exceptionMsg
-            + "\n"
-            + "Please try again";
+            + "\n";
     }
 }
