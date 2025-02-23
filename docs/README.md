@@ -9,7 +9,7 @@ and efficiently.
 
 You can add 3 types of tasks to your task list which you can refer to later.
 
-1. `todo`: This adds a basic task to your list
+1)`todo`: This adds a basic task to your list
 
 Example: `todo read books`
 
@@ -19,8 +19,7 @@ added
 [T][ ] read books
 to your list!
 ```
-
-2. `deadline`: This adds a task with a deadline (YYYY-MM-DD) to your list
+2)`deadline`: This adds a task with a deadline (YYYY-MM-DD) to your list
 
 Example: `deadline return books /by 2025-03-01`
 
@@ -31,7 +30,7 @@ added
 to your list!
 ```
 
-3. `event`: This adds a task with a start and an end (in any format) to your list
+3)`event`: This adds a task with a start and an end (in any format) to your list
 
 Example: `event go to the library /from 2:00PM /to 4:00PM`
 
