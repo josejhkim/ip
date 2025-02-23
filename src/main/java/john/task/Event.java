@@ -44,6 +44,7 @@ public class Event extends Task {
                 + " ("
                 + " from: " + this.from
                 + " to: " + this.to
-                + " )";
+                + " )"
+                + " " + this.getExpenseString();
     }
 }

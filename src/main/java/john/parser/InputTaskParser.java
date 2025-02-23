@@ -37,7 +37,7 @@ public class InputTaskParser {
 
             int expenseIndex = input.indexOf("${");
             if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex);
+                inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
             String desc = inputWithoutExpense.substring(START_DESC_TODO);
@@ -68,7 +68,7 @@ public class InputTaskParser {
 
             int expenseIndex = input.indexOf("${");
             if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex);
+                inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
             int deadlineIndex = inputWithoutExpense.indexOf("/by");
@@ -103,7 +103,7 @@ public class InputTaskParser {
 
             int expenseIndex = input.indexOf("${");
             if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex);
+                inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
             int fromIndex = inputWithoutExpense.indexOf("/from");

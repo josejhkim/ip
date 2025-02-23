@@ -35,7 +35,7 @@ public class FileTaskParser {
 
             int expenseIndex = input.indexOf("${");
             if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex);
+                inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
             String desc = inputWithoutExpense.substring(START_DESC);
@@ -71,7 +71,7 @@ public class FileTaskParser {
 
             int expenseIndex = input.indexOf("${");
             if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex);
+                inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
             int deadlineIndex = inputWithoutExpense.indexOf("(by:");
@@ -113,14 +113,15 @@ public class FileTaskParser {
 
             int expenseIndex = input.indexOf("${");
             if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex);
+                inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
-            int fromIndex = inputWithoutExpense.indexOf("(from:");
+            int fromIndex = inputWithoutExpense.indexOf("( from: ");
             int toIndex = inputWithoutExpense.indexOf("to:", fromIndex + 1);
+            int toEnd = inputWithoutExpense.indexOf(" )", toIndex + 1);
 
             String from = inputWithoutExpense.substring(fromIndex + START_FROM, toIndex - 1);
-            String to = inputWithoutExpense.substring(toIndex + START_TO);
+            String to = inputWithoutExpense.substring(toIndex + START_TO, toEnd);
 
             String desc = inputWithoutExpense.substring(START_DESC, fromIndex);
             if (desc.isEmpty()) {

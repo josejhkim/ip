@@ -102,6 +102,14 @@ public class Task {
     }
 
     /**
+     * Return the expense in a string format.
+     * @return String representing the expense
+     */
+    public String getExpenseString() {
+        return (this.getExpense() > 0 ? "${" + this.getExpense() + "}" : "");
+    }
+
+    /**
      * Returns the task object in a string format.
      * Formats the task as "[{statusIcon}] {description}".
      * @return String representation of the task object
@@ -109,7 +117,6 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] "
-                + this.description
-                + (this.expense > 0 ? "${" + this.expense + "}" : "");
+                + this.description;
     }
 }
