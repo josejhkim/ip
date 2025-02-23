@@ -13,7 +13,13 @@ import john.John;
  */
 public class Main extends Application {
 
-    private John john = new John("./data/john.txt");
+    /**
+     * Use a random string to name the file to save data
+     * to avoid conflicts with other pre-existing file names.
+     */
+    private final String RANDOM_STRING = "8f534ea74181d1a6ee1acae3413fd381";
+
+    private John john = new John("john" + RANDOM_STRING + ".txt");
 
     @Override
     public void start(Stage stage) {

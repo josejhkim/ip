@@ -25,6 +25,22 @@ public class Storage {
         assert filePath.length() > 0 : "filePath isn't empty";
 
         this.filePath = filePath;
+
+        File f = new File(filePath);
+
+        if (!f.exists()) {
+            try {
+                // Attempt to create the file
+                if (f.createNewFile()) {
+                    System.out.println("File not found. A new file has been created at: " + f.getAbsolutePath());
+                } else {
+                    System.out.println("File not found and could not be created.");
+                }
+            } catch (IOException e) {
+                System.err.println("An error occurred while creating the file.");
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -57,6 +73,22 @@ public class Storage {
         Scanner s = new Scanner(f);
 
         TaskList taskList = new TaskList();
+
+        if (!f.exists()) {
+            try {
+                // Attempt to create the file
+                if (f.createNewFile()) {
+                    System.out.println("File not found. A new file has been created at: " + f.getAbsolutePath());
+                } else {
+                    System.out.println("File not found and could not be created.");
+                    return taskList;
+                }
+            } catch (IOException e) {
+                System.err.println("An error occurred while creating the file.");
+                e.printStackTrace();
+                return taskList;
+            }
+        }
 
         while (s.hasNext()) {
             String taskString = s.nextLine();
