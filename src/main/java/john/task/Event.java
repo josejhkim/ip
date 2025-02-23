@@ -5,9 +5,6 @@ package john.task;
  */
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
-
     public static final String EVENT_FORMAT_ERROR =
         "Please enter a proper event task "
         + "by formatting it as follows:"
@@ -16,6 +13,9 @@ public class Event extends Task {
         + "\n"
         + "The start and the end for the from and the to field "
         + "can be in any format.";
+
+    protected String from;
+    protected String to;
 
     /**
      * Creates a new event object with the given description and duration.

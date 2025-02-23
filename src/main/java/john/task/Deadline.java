@@ -8,11 +8,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected LocalDate by;
-
-    private static final DateTimeFormatter DEADLINE_FORMATTER =
-        DateTimeFormatter.ofPattern("dd MMM yyyy");
-
     public static final String DEADLINE_FORMAT_ERROR =
         "Please enter a proper deadline task "
         + "by formatting it as follows: "
@@ -22,6 +17,11 @@ public class Deadline extends Task {
         + "The deadline for the by field should be in a YYYY-MM-DD format."
         + "\n"
         + "(i.e. 2025-01-20)";
+
+    private static final DateTimeFormatter DEADLINE_FORMATTER =
+        DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+    protected LocalDate by;
 
     /**
      * Creates a new Deadline object with the given description and deadline.

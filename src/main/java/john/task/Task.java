@@ -7,14 +7,15 @@ import java.util.regex.Pattern;
  * Task class for storing information regarding user's tasks
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
 
     public static final String INVALID_FORMAT_ERROR =
         "The formatting of this task is incorrect";
 
     public static final String EMPTY_DESCRIPTION_ERROR =
         "Please input a proper task description.";
+
+    protected String description;
+    protected boolean isDone;
 
     private double expense;
 

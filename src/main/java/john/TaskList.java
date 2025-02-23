@@ -14,7 +14,7 @@ import john.task.Task;
 public class TaskList {
     private List<Task> taskList;
 
-    private final String ERROR_INVALID_INDEX = "Please input a valid numerical "
+    private final String errorInvalidIndex = "Please input a valid numerical "
         + "index between 1 and ";
 
     /**
@@ -53,7 +53,7 @@ public class TaskList {
     }
 
     private String getInvalidIndexMsg() {
-        return this.ERROR_INVALID_INDEX + this.getSize();
+        return this.errorInvalidIndex + this.getSize();
     }
 
     /**
@@ -85,16 +85,16 @@ public class TaskList {
             throw new JohnException(this.getInvalidIndexMsg());
         }
     }
-    
+
     /**
      * Deletes the task from the task list at the specified index and return it.
      * @param index
      * @return Task deleted from the list at the specified index
      */
-    public Task deleteFromTaskList(int index) throws JohnException{
+    public Task deleteFromTaskList(int index) throws JohnException {
         assert index >= 0 : "Index should not be negative";
-        assert this.taskList.size() > 0 :
-            "TaskList should have something to delete";
+        assert this.taskList.size() > 0
+            : "TaskList should have something to delete";
 
         try {
             Task task = this.taskList.remove(index);
@@ -165,7 +165,7 @@ public class TaskList {
      * @param index
      * @return String description of the task stored at the given index
      */
-    public String getDescription(int index) throws JohnException{
+    public String getDescription(int index) throws JohnException {
         assert index >= 0 : "Index should not be negative";
 
         try {

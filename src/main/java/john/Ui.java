@@ -7,6 +7,10 @@ import john.task.Task;
  */
 public class Ui {
 
+    /**
+     * Return a string for showing all available commands.
+     * @return String showing all available commands
+     */
     public String sayHelp() {
         return """
             Here are some commands you can use to get started!
@@ -22,7 +26,7 @@ public class Ui {
             "bye" exits the app and saves your current task list.
 
             Task creation commands
-            
+
             "todo X" creates a new todo task with the description X
             "deadline X /by yyyy-mm-dd" creates a new deadline task with the given deadline
             "event X /from start /to end" creates a new event task with the given duration start and end
@@ -30,6 +34,10 @@ public class Ui {
             """;
     }
 
+    /**
+     * Return a string for greeting the user.
+     * @return String for greeting the user
+     */
     public String sayHello() {
         return """
                Hello! I'm John, your personalized assistant chatbot!
@@ -37,6 +45,10 @@ public class Ui {
                """;
     }
 
+    /**
+     * Return a string saying bye to the user.
+     * @return String saying goodbye
+     */
     public String sayGoodbye() {
         return """
                Goodbye and have a nice day!
@@ -79,8 +91,8 @@ public class Ui {
      * @return String representation of the marked task
      */
     public String sayMarkAsDone(String description) {
-        assert description != null :
-            "The printed description shouldn't be null";
+        assert description != null
+            : "The printed description shouldn't be null";
 
         return "Marking \"" + description + "\" as done!";
     }
@@ -91,8 +103,8 @@ public class Ui {
      * @return String representation of the marked task
      */
     public String sayUnmarkAsDone(String description) {
-        assert description != null :
-            "The printed description shouldn't be null";
+        assert description != null
+            : "The printed description shouldn't be null";
 
         return "Marking \"" + description + "\" as done!";
     }
@@ -106,6 +118,10 @@ public class Ui {
         return "Your total expense from all the tasks are: $" + expense;
     }
 
+    /**
+     * Returns a string notifying that current list is empty.
+     * @return String saying the current list is empty
+     */
     public String sayEmptyList() {
         return """
                 Your list is currently empty!
