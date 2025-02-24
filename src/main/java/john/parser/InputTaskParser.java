@@ -27,6 +27,24 @@ public class InputTaskParser {
     private static final int LENGTH_TO = "2021-01-01".length();
 
     /**
+     * Returns a modified version of the user input without the expense.
+     * If there is no expense, return the user input as is.
+     * @param input
+     * @return String for the user input without the expense.
+     */
+    private static String getInputWithoutExpense(String input) {
+        String inputWithoutExpense = input;
+
+        int expenseIndex = input.indexOf("${");
+
+        if (expenseIndex >= 0) {
+            inputWithoutExpense = input.substring(0, expenseIndex).trim();
+        }
+
+        return inputWithoutExpense;
+    }
+
+    /**
      * Reads the user input and creates a corresponding todo object.
      * If the input is invalid, throw an exception.
      * @param input
@@ -35,13 +53,7 @@ public class InputTaskParser {
      */
     public static Todo createTodo(String input) throws JohnException {
         try {
-
-            String inputWithoutExpense = input;
-
-            int expenseIndex = input.indexOf("${");
-            if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex).trim();
-            }
+            String inputWithoutExpense = getInputWithoutExpense(input);
 
             String desc = inputWithoutExpense.substring(OFFSET_DESC_TODO).trim();
             if (desc.isEmpty()) {
@@ -50,12 +62,27 @@ public class InputTaskParser {
 
             Todo todo = new Todo(desc);
             todo.setExpenseFromTaskString(input);
+
             return todo;
         } catch (StringIndexOutOfBoundsException sioobe) {
             //This shouldn't happen but just in case
             throw new JohnException(Todo.TODO_FORMAT_ERROR);
         }
+    }
 
+    /**
+     * Get the deadline from the given input.
+     * @param input
+     * @return LocalDate for the deadline in the input
+     */
+    private static LocalDate getDeadlineLocalDate(String input, int deadlineIndex) {
+        int deadlineStart = deadlineIndex + OFFSET_DEADLINE;
+        int deadlineEnd = deadlineStart + LENGTH_DEADLINE;
+
+        LocalDate deadline = LocalDate.parse(
+            input.substring(deadlineStart, deadlineEnd));
+
+        return deadline;
     }
 
     /**
@@ -67,19 +94,11 @@ public class InputTaskParser {
      */
     public static Deadline createDeadline(String input) throws JohnException {
         try {
-            String inputWithoutExpense = input;
-
-            int expenseIndex = input.indexOf("${");
-            if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex).trim();
-            }
+            String inputWithoutExpense = getInputWithoutExpense(input);
 
             int deadlineIndex = inputWithoutExpense.indexOf("/by");
-            int deadlineStart = deadlineIndex + OFFSET_DEADLINE;
-            int deadlineEnd = deadlineStart + LENGTH_DEADLINE;
 
-            LocalDate deadline = LocalDate.parse(
-                    inputWithoutExpense.substring(deadlineStart, deadlineEnd));
+            LocalDate deadline = getDeadlineLocalDate(inputWithoutExpense, deadlineIndex);
 
             String desc = inputWithoutExpense.substring(OFFSET_DESC_DEADLINE, deadlineIndex).trim();
             if (desc.isEmpty()) {
@@ -96,6 +115,37 @@ public class InputTaskParser {
     }
 
     /**
+     * Get the event start from the given input.
+     * @param input
+     * @return LocalDate for the 'from' field in the input
+     */
+    private static LocalDate getFromLocalDate(String input, int fromIndex) {
+        int fromStart = fromIndex + OFFSET_FROM;
+        int fromEnd = fromIndex + OFFSET_FROM + LENGTH_FROM;
+
+        LocalDate from = LocalDate.parse(
+            input.substring(fromStart, fromEnd));
+
+        return from;
+    }
+
+    /**
+     * Get the event end from the given input.
+     * @param input
+     * @return LocalDate for the 'to' field in the input
+     */
+    private static LocalDate getToLocalDate(String input, int fromIndex) {
+        int toIndex = input.indexOf("/to", fromIndex + 1);
+        int toStart = toIndex + OFFSET_TO;
+        int toEnd = toStart + LENGTH_TO;
+
+        LocalDate to = LocalDate.parse(
+            input.substring(toStart, toEnd));
+
+        return to;
+    }
+
+    /**
      * Reads the user input and returns a corresponding event object.
      * If the input is invalid, throw an exception.
      * @param input
@@ -104,26 +154,13 @@ public class InputTaskParser {
      */
     public static Event createEvent(String input) throws JohnException {
         try {
-            String inputWithoutExpense = input;
-
-            int expenseIndex = input.indexOf("${");
-            if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex).trim();
-            }
+            String inputWithoutExpense = getInputWithoutExpense(input);
 
             int fromIndex = inputWithoutExpense.indexOf("/from");
-            int fromStart = fromIndex + OFFSET_FROM;
-            int fromEnd = fromIndex + OFFSET_FROM + LENGTH_FROM;
 
-            LocalDate from = LocalDate.parse(
-                inputWithoutExpense.substring(fromStart, fromEnd));
+            LocalDate from = getFromLocalDate(inputWithoutExpense, fromIndex);
 
-            int toIndex = inputWithoutExpense.indexOf("/to", fromIndex + 1);
-            int toStart = toIndex + OFFSET_TO;
-            int toEnd = toStart + LENGTH_TO;
-
-            LocalDate to = LocalDate.parse(
-                inputWithoutExpense.substring(toStart, toEnd));
+            LocalDate to = getToLocalDate(inputWithoutExpense, fromIndex);
 
             String desc = inputWithoutExpense.substring(OFFSET_DESC_EVENT, fromIndex).trim();
             if (desc.isEmpty()) {
@@ -132,6 +169,7 @@ public class InputTaskParser {
 
             Event event = new Event(desc, from, to);
             event.setExpenseFromTaskString(input);
+
             return event;
         } catch (DateTimeParseException | StringIndexOutOfBoundsException
             invalidFormattingException) {

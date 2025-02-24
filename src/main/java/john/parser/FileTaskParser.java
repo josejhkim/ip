@@ -32,6 +32,24 @@ public class FileTaskParser {
         DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     /**
+     * Returns a modified version of the user input without the expense.
+     * If there is no expense, return the user input as is.
+     * @param input
+     * @return String for the user input without the expense.
+     */
+    private static String getInputWithoutExpense(String input) {
+        String inputWithoutExpense = input;
+
+        int expenseIndex = input.indexOf("${");
+
+        if (expenseIndex >= 0) {
+            inputWithoutExpense = input.substring(0, expenseIndex).trim();
+        }
+
+        return inputWithoutExpense;
+    }
+
+    /**
      * Returns a todo task from a file after reading it.
      * @param input
      * @return Todo object from the given file line input
@@ -39,12 +57,7 @@ public class FileTaskParser {
      */
     public static Todo readTodo(String input) throws JohnException {
         try {
-            String inputWithoutExpense = input;
-
-            int expenseIndex = input.indexOf("${");
-            if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex).trim();
-            }
+            String inputWithoutExpense = getInputWithoutExpense(input);
 
             String desc = inputWithoutExpense.substring(OFFSET_DESC).trim();
 
@@ -68,6 +81,23 @@ public class FileTaskParser {
     }
 
     /**
+     * Get the deadline from the given input.
+     * @param input
+     * @return LocalDate for the deadline in the input
+     */
+    private static LocalDate getDeadlineLocalDate(String input, int deadlineIndex) {
+        int deadlineStart = deadlineIndex + OFFSET_DEADLINE;
+        int deadlineEnd = deadlineStart + LENGTH_DEADLINE;
+
+        LocalDate deadline = LocalDate.parse(input.substring(
+            deadlineStart,
+            deadlineEnd
+        ), FORMATTER_DEADLINE);
+
+        return deadline;
+    }
+
+    /**
      * Returns a deadline task from a file after reading it.
      * @param input
      * @return Deadline object from the given file line input
@@ -75,26 +105,16 @@ public class FileTaskParser {
      */
     public static Deadline readDeadline(String input) throws JohnException {
         try {
-            String inputWithoutExpense = input;
+            String inputWithoutExpense = getInputWithoutExpense(input);
 
-            int expenseIndex = input.indexOf("${");
-            if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex).trim();
-            }
-
-            int deadlineIndex = inputWithoutExpense.indexOf("( by:");
-            int deadlineStart = deadlineIndex + OFFSET_DEADLINE;
-            int deadlineEnd = deadlineStart + LENGTH_DEADLINE;
-
-            LocalDate deadline = LocalDate.parse(inputWithoutExpense.substring(
-                    deadlineStart,
-                    deadlineEnd
-                    ), FORMATTER_DEADLINE);
+            int deadlineIndex = input.indexOf("( by:");
 
             String desc = inputWithoutExpense.substring(OFFSET_DESC, deadlineIndex).trim();
             if (desc.isEmpty()) {
                 throw new JohnException("empty task description");
             }
+
+            LocalDate deadline = getDeadlineLocalDate(inputWithoutExpense, deadlineIndex);
 
             Deadline dl = new Deadline(desc, deadline);
 
@@ -113,6 +133,41 @@ public class FileTaskParser {
     }
 
     /**
+     * Get the event start from the given input.
+     * @param input
+     * @return LocalDate for the 'from' field in the input
+     */
+    private static LocalDate getFromLocalDate(String input, int fromIndex) {
+        int fromStart = fromIndex + OFFSET_FROM;
+        int fromEnd = fromStart + LENGTH_FROM;
+
+        LocalDate from = LocalDate.parse(input.substring(
+            fromStart,
+            fromEnd
+        ), FORMATTER_EVENT);
+
+        return from;
+    }
+
+    /**
+     * Get the event end from the given input.
+     * @param input
+     * @return LocalDate for the 'to' field in the input
+     */
+    private static LocalDate getToLocalDate(String input, int fromIndex) {
+        int toIndex = input.indexOf("to:", fromIndex);
+        int toStart = toIndex + OFFSET_TO;
+        int toEnd = toStart + LENGTH_TO;
+
+        LocalDate to = LocalDate.parse(input.substring(
+            toIndex + OFFSET_TO,
+            toEnd
+        ), FORMATTER_EVENT);
+
+        return to;
+    }
+
+    /**
      * Returns an event task from a file after reading it.
      * @param input
      * @return Event object from the given file line input
@@ -120,35 +175,17 @@ public class FileTaskParser {
      */
     public static Event readEvent(String input) throws JohnException {
         try {
-            String inputWithoutExpense = input;
+            String inputWithoutExpense = getInputWithoutExpense(input);
 
-            int expenseIndex = input.indexOf("${");
-            if (expenseIndex >= 0) {
-                inputWithoutExpense = input.substring(0, expenseIndex).trim();
-            }
-
-            int fromIndex = inputWithoutExpense.indexOf("( from: ");
-            int fromStart = fromIndex + OFFSET_FROM;
-            int fromEnd = fromStart + LENGTH_FROM;
-
-            int toIndex = inputWithoutExpense.indexOf("to:", fromIndex + 1);
-            int toStart = toIndex + OFFSET_TO;
-            int toEnd = toStart + LENGTH_TO;
-
-            LocalDate from = LocalDate.parse(inputWithoutExpense.substring(
-                fromStart,
-                fromEnd
-            ), FORMATTER_EVENT);
-
-            LocalDate to = LocalDate.parse(inputWithoutExpense.substring(
-                toIndex + OFFSET_TO,
-                toEnd
-            ), FORMATTER_EVENT);
+            int fromIndex = input.indexOf("( from: ");
 
             String desc = inputWithoutExpense.substring(OFFSET_DESC, fromIndex).trim();
             if (desc.isEmpty()) {
                 throw new JohnException("empty task description");
             }
+
+            LocalDate from = getFromLocalDate(inputWithoutExpense, fromIndex);
+            LocalDate to = getToLocalDate(inputWithoutExpense, fromIndex);
 
             Event event = new Event(desc, from, to);
 

@@ -53,7 +53,6 @@ public class Storage {
 
             for (Task task: taskList) {
                 fw.write(task.toString() + System.lineSeparator());
-
             }
 
             fw.close();
@@ -69,26 +68,9 @@ public class Storage {
      */
     public TaskList getTaskListFromFile() throws FileNotFoundException {
         File f = new File(filePath);
-
         Scanner s = new Scanner(f);
 
         TaskList taskList = new TaskList();
-
-        if (!f.exists()) {
-            try {
-                // Attempt to create the file
-                if (f.createNewFile()) {
-                    System.out.println("File not found. A new file has been created at: " + f.getAbsolutePath());
-                } else {
-                    System.out.println("File not found and could not be created.");
-                    return taskList;
-                }
-            } catch (IOException e) {
-                System.err.println("An error occurred while creating the file.");
-                e.printStackTrace();
-                return taskList;
-            }
-        }
 
         while (s.hasNext()) {
             String taskString = s.nextLine();
@@ -100,7 +82,6 @@ public class Storage {
                 System.out.println("Unable to parse task for " + taskString);
             }
         }
-
         s.close();
 
         return taskList;
