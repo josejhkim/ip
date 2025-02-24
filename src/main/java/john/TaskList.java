@@ -108,7 +108,7 @@ public class TaskList {
     /**
      * Returns the given List of Tasks in a String format,
      * with new lines between each task
-     * @param tasklist
+     * @param tl
      * @return A string representing the List of Tasks
      */
     public String getTaskListAsString(List<Task> tl) {

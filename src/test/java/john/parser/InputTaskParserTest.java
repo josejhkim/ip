@@ -60,8 +60,10 @@ public class InputTaskParserTest {
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Please enter a proper event task by formatting it as follows:\n"
-                + "event <description> /from <start> /to <end>\n"
-                + "The start and the end for the from and the to field can be in any format.", e.getMessage());
+                + "event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>\n"
+                + "The start and the end for the from and the to field"
+                + " should be in a YYYY-MM-DD format.\n"
+                + "(i.e. 2025-01-20)", e.getMessage());
         }
     }
 
@@ -72,8 +74,10 @@ public class InputTaskParserTest {
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Please enter a proper event task by formatting it as follows:\n"
-                + "event <description> /from <start> /to <end>\n"
-                + "The start and the end for the from and the to field can be in any format.", e.getMessage());
+                + "event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>\n"
+                + "The start and the end for the from and the to field"
+                + " should be in a YYYY-MM-DD format.\n"
+                + "(i.e. 2025-01-20)", e.getMessage());
         }
     }
 }

@@ -8,9 +8,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    private static final DateTimeFormatter EVENT_FORMATTER =
-        DateTimeFormatter.ofPattern("dd MMM yyyy");
-
     public static final String EVENT_FORMAT_ERROR =
         "Please enter a proper event task "
         + "by formatting it as follows:"
@@ -21,6 +18,9 @@ public class Event extends Task {
         + "should be in a YYYY-MM-DD format."
         + "\n"
         + "(i.e. 2025-01-20)";
+
+    private static final DateTimeFormatter EVENT_FORMATTER =
+        DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     protected LocalDate from;
     protected LocalDate to;
