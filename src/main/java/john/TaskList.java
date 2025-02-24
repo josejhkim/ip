@@ -111,11 +111,15 @@ public class TaskList {
      * @param tasklist
      * @return A string representing the List of Tasks
      */
-    public String getTaskListAsString(List<Task> tasklist) {
+    public String getTaskListAsString(List<Task> tl) {
+        if (tl.size() == 0) {
+            return "Looks like there isn't anything to display :(";
+        }
+
         String taskListString = "";
         int index = 1;
 
-        for (Task task : this.taskList) {
+        for (Task task : tl) {
             String indexString = index++ + ". ";
             String taskStringWithNewLine = task.toString() + "\n";
 
