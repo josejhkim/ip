@@ -106,7 +106,7 @@ public class Ui {
         assert description != null
             : "The printed description shouldn't be null";
 
-        return "Marking \"" + description + "\" as done!";
+        return "Marking \"" + description + "\" as not done!";
     }
 
     /**
