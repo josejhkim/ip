@@ -22,6 +22,8 @@ public class InputTaskParser {
     private static final int START_DESC_EVENT = "event ".length();
     private static final int START_FROM = "/from ".length();
     private static final int START_TO = "/to ".length();
+    private static final int LENGTH_FROM = "2021-01-01".length();
+    private static final int LENGTH_TO = "2021-01-01".length();
 
     /**
      * Reads the user input and creates a corresponding todo object.
@@ -40,7 +42,7 @@ public class InputTaskParser {
                 inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
-            String desc = inputWithoutExpense.substring(START_DESC_TODO);
+            String desc = inputWithoutExpense.substring(START_DESC_TODO).trim();
             if (desc.isEmpty()) {
                 throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
@@ -76,7 +78,7 @@ public class InputTaskParser {
             LocalDate deadline = LocalDate.parse(
                     inputWithoutExpense.substring(deadlineIndex + START_DEADLINE));
 
-            String desc = inputWithoutExpense.substring(START_DESC_DEADLINE, deadlineIndex);
+            String desc = inputWithoutExpense.substring(START_DESC_DEADLINE, deadlineIndex).trim();
             if (desc.isEmpty()) {
                 throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
@@ -85,7 +87,7 @@ public class InputTaskParser {
             dl.setExpenseFromTaskString(input);
             return dl;
         } catch (DateTimeParseException | StringIndexOutOfBoundsException
-            dtpe) {
+            invalidFormatException) {
             throw new JohnException(Deadline.DEADLINE_FORMAT_ERROR);
         }
     }
@@ -109,10 +111,12 @@ public class InputTaskParser {
             int fromIndex = inputWithoutExpense.indexOf("/from");
             int toIndex = inputWithoutExpense.indexOf("/to", fromIndex + 1);
 
-            String from = inputWithoutExpense.substring(fromIndex + START_FROM, toIndex - 1);
-            String to = inputWithoutExpense.substring(toIndex + START_TO);
+            LocalDate from = LocalDate.parse(
+                inputWithoutExpense.substring(fromIndex + START_FROM, fromIndex + START_FROM + LENGTH_FROM));
+            LocalDate to = LocalDate.parse(
+                inputWithoutExpense.substring(toIndex + START_TO, toIndex + START_TO + LENGTH_TO));
 
-            String desc = inputWithoutExpense.substring(START_DESC_EVENT, fromIndex);
+            String desc = inputWithoutExpense.substring(START_DESC_EVENT, fromIndex).trim();
             if (desc.isEmpty()) {
                 throw new JohnException(Task.EMPTY_DESCRIPTION_ERROR);
             }
@@ -120,7 +124,8 @@ public class InputTaskParser {
             Event event = new Event(desc, from, to);
             event.setExpenseFromTaskString(input);
             return event;
-        } catch (StringIndexOutOfBoundsException sioobe) {
+        } catch (DateTimeParseException | StringIndexOutOfBoundsException
+            invalidFormattingException) {
             throw new JohnException(Event.EVENT_FORMAT_ERROR);
         }
     }

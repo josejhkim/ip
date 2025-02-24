@@ -17,11 +17,20 @@ public class FileTaskParser {
     private static final int START_DESC = "[D][X] ".length();
     private static final int IS_DONE_INDEX = 4;
 
-    private static final int START_DEADLINE = "(by: ".length();
+    private static final int START_DEADLINE = "( by: ".length();
     private static final int LENGTH_DEADLINE = "01 DEC 2021".length();
 
-    private static final int START_FROM = "(from: ".length();
+    private static final int START_FROM = "( from: ".length();
     private static final int START_TO = "to: ".length();
+    private static final int LENGTH_FROM = "01 DEC 2021".length();
+    private static final int LENGTH_TO = "01 DEC 2021".length();
+
+
+    private static final DateTimeFormatter FORMATTER_DEADLINE =
+        DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+    private static final DateTimeFormatter FORMATTER_EVENT =
+        DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     /**
      * Returns a todo task from a file after reading it.
@@ -38,7 +47,7 @@ public class FileTaskParser {
                 inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
-            String desc = inputWithoutExpense.substring(START_DESC);
+            String desc = inputWithoutExpense.substring(START_DESC).trim();
 
             if (desc.isEmpty()) {
                 throw new JohnException("empty task description");
@@ -74,13 +83,13 @@ public class FileTaskParser {
                 inputWithoutExpense = input.substring(0, expenseIndex).trim();
             }
 
-            int deadlineIndex = inputWithoutExpense.indexOf("(by:");
-            LocalDate deadline = LocalDate.parse(input.substring(
+            int deadlineIndex = inputWithoutExpense.indexOf("( by:");
+            LocalDate deadline = LocalDate.parse(inputWithoutExpense.substring(
                     deadlineIndex + START_DEADLINE,
                     deadlineIndex + START_DEADLINE + LENGTH_DEADLINE
-                    ), DateTimeFormatter.ofPattern("dd MMM yyyy"));
+                    ), FORMATTER_DEADLINE);
 
-            String desc = inputWithoutExpense.substring(START_DESC, deadlineIndex);
+            String desc = inputWithoutExpense.substring(START_DESC, deadlineIndex).trim();
             if (desc.isEmpty()) {
                 throw new JohnException("empty task description");
             }
@@ -120,10 +129,17 @@ public class FileTaskParser {
             int toIndex = inputWithoutExpense.indexOf("to:", fromIndex + 1);
             int toEnd = inputWithoutExpense.indexOf(" )", toIndex + 1);
 
-            String from = inputWithoutExpense.substring(fromIndex + START_FROM, toIndex - 1);
-            String to = inputWithoutExpense.substring(toIndex + START_TO, toEnd);
+            LocalDate from = LocalDate.parse(inputWithoutExpense.substring(
+                fromIndex + START_FROM,
+                fromIndex + START_FROM + LENGTH_FROM
+            ), FORMATTER_EVENT);
 
-            String desc = inputWithoutExpense.substring(START_DESC, fromIndex);
+            LocalDate to = LocalDate.parse(inputWithoutExpense.substring(
+                toIndex + START_TO,
+                toEnd
+            ), FORMATTER_EVENT);
+
+            String desc = inputWithoutExpense.substring(START_DESC, fromIndex).trim();
             if (desc.isEmpty()) {
                 throw new JohnException("empty task description");
             }
@@ -138,7 +154,8 @@ public class FileTaskParser {
             event.setExpenseFromTaskString(input);
 
             return event;
-        } catch (StringIndexOutOfBoundsException sioobe) {
+        } catch (DateTimeParseException | StringIndexOutOfBoundsException
+            invalidFormattingException) {
             throw new JohnException(Event.EVENT_FORMAT_ERROR);
         }
     }
